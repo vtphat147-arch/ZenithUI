@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Code2, Menu, X, Sparkles, Github, Sun, Moon } from 'lucide-react'
+import { Code2, Menu, X, Sparkles, Github } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { componentsData } from '../../data/components'
 
@@ -9,19 +9,12 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const location = useLocation()
 
-  // Theme support
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme')
-      if (saved) return saved
-      // Check system preference
-      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        return 'light'
-      }
-      return 'dark'
-    }
-    return 'dark'
-  })
+  // Theme support (Always dark mode)
+  useEffect(() => {
+    const root = window.document.documentElement
+    root.classList.add('dark')
+    localStorage.setItem('theme', 'dark')
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,19 +24,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    const root = window.document.documentElement
-    if (theme === 'dark') {
-      root.classList.add('dark')
-    } else {
-      root.classList.remove('dark')
-    }
-    localStorage.setItem('theme', theme)
-  }, [theme])
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark')
-  }
 
   const navItems = [
     { path: '/', label: 'Home' },
@@ -131,19 +112,7 @@ const Header = () => {
 
           {/* CTA & Tools */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Theme Toggle Switch */}
-            <button
-              onClick={toggleTheme}
-              className="p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-text-primary/[0.06] transition-all duration-300"
-              aria-label="Toggle theme"
-              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-5 h-5 text-amber-400" />
-              ) : (
-                <Moon className="w-5 h-5 text-indigo-600" />
-              )}
-            </button>
+
 
             {/* Github link */}
             <a
@@ -174,18 +143,7 @@ const Header = () => {
 
           {/* Mobile Actions block */}
           <div className="flex md:hidden items-center gap-2">
-            {/* Theme Toggle (Mobile) */}
-            <button
-              onClick={toggleTheme}
-              className="p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-text-primary/[0.06] transition-all duration-300"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-5 h-5 text-amber-400" />
-              ) : (
-                <Moon className="w-5 h-5 text-indigo-600" />
-              )}
-            </button>
+
 
             {/* Mobile Menu Button */}
             <button
