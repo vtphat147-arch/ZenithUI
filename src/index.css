@@ -16,13 +16,13 @@ html.lenis { height: auto; }
    ═══════════════════════════════════════ */
 :root {
   /* Light mode colors - softer, cleaner slate tint */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f1f5f9;
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --border-color: rgba(15, 23, 42, 0.08);
+  --bg-primary: 248 250 252;
+  --bg-secondary: 255 255 255;
+  --bg-tertiary: 241 245 249;
+  --text-primary: 15 23 42;
+  --text-secondary: 51 65 85;
+  --text-muted: 100 116 139;
+  --border-color: 15 23 42;
 
   --glass-bg: rgba(255, 255, 255, 0.65);
   --glass-border: rgba(15, 23, 42, 0.06);
@@ -33,13 +33,13 @@ html.lenis { height: auto; }
 
 .dark {
   /* Dark mode colors - premium space depth */
-  --bg-primary: #090915;
-  --bg-secondary: #0c0c20;
-  --bg-tertiary: #11112b;
-  --text-primary: #ffffff;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --border-color: rgba(255, 255, 255, 0.06);
+  --bg-primary: 9 9 21;
+  --bg-secondary: 12 12 32;
+  --bg-tertiary: 17 17 43;
+  --text-primary: 255 255 255;
+  --text-secondary: 203 213 225;
+  --text-muted: 148 163 184;
+  --border-color: 255 255 255;
 
   --glass-bg: rgba(255, 255, 255, 0.02);
   --glass-border: rgba(255, 255, 255, 0.06);
@@ -59,8 +59,8 @@ html.lenis { height: auto; }
   }
 
   body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
+    background-color: rgb(var(--bg-primary));
+    color: rgb(var(--text-primary));
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     transition: background-color 0.4s ease, color 0.4s ease;
   }
@@ -97,7 +97,7 @@ html.lenis { height: auto; }
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: rgb(var(--bg-primary));
 }
 
 ::-webkit-scrollbar-thumb {
@@ -227,13 +227,13 @@ html.lenis { height: auto; }
     @apply px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border cursor-pointer whitespace-nowrap;
     background: var(--glass-bg);
     border-color: var(--glass-border);
-    color: var(--text-secondary);
+    color: rgb(var(--text-secondary));
   }
 
   .category-pill:hover {
     background: var(--glass-hover-bg);
-    border-color: var(--border-color);
-    color: var(--text-primary);
+    border-color: rgb(var(--border-color));
+    color: rgb(var(--text-primary));
     transform: translateY(-1px);
   }
 
