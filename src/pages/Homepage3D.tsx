@@ -15,7 +15,7 @@ const Homepage3D = () => {
   const { scrollProgress } = useScrollProgress()
 
   useEffect(() => {
-    // Dynamic import Lenis để tránh SSR issues
+    // Dynamic import Lenis to avoid SSR issues
     if (typeof window === 'undefined') return
     
     import('lenis').then((LenisModule) => {

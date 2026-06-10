@@ -4,25 +4,25 @@ import { Quote, Star } from 'lucide-react'
 
 const testimonials = [
   {
-    name: 'Nguyễn Hoàng Lâm',
+    name: 'Lam Nguyen',
     role: 'Frontend Architect @ VinGroup',
-    content: 'Thư viện components này giúp team của tôi rút ngắn 50% thời gian phát triển UI. Các hiệu ứng animations và hover rất mượt, code cực kỳ trực quan và sạch sẽ.',
+    content: 'This component library reduced our UI development time by 50%. The hover effects and animations are incredibly smooth, and the code is clean and intuitive.',
     avatarColor: 'bg-indigo-500',
     initial: 'L',
     rating: 5
   },
   {
-    name: 'Phạm Minh Trang',
+    name: 'Trang Pham',
     role: 'Senior UI/UX Designer @ VNG',
-    content: 'Phong cách thiết kế cực kỳ hiện đại và trendy. Tỷ lệ tương tác trên landing page của chúng tôi tăng vọt sau khi tích hợp một số card và button từ đây.',
+    content: 'Extremely modern and trendy design style. Our landing page conversion rates soared after integrating a few buttons and cards from ZenithUI.',
     avatarColor: 'bg-pink-500',
     initial: 'T',
     rating: 5
   },
   {
-    name: 'Đặng Tuấn Anh',
+    name: 'Alex Dang',
     role: 'Full Stack Creator',
-    content: 'CSS thuần tối giản dễ dàng copy-paste và tùy chỉnh. Rất phù hợp cho các nhà phát triển độc lập muốn build sản phẩm nhanh mà vẫn cực kỳ nịnh mắt.',
+    content: 'Minimalist, raw CSS components that are easy to copy, paste, and customize. Perfect for indie creators who want to ship fast with polished designs.',
     avatarColor: 'bg-cyan-500',
     initial: 'A',
     rating: 5
@@ -30,10 +30,10 @@ const testimonials = [
 ]
 
 const stats = [
-  { value: '15,000+', label: 'Lượt Tải Code' },
-  { value: '45+', label: 'Components Mẫu' },
-  { value: '99.9%', label: 'Độ Hài Lòng' },
-  { value: '4.9/5', label: 'Đánh Giá' }
+  { value: '15,000+', label: 'Downloads' },
+  { value: '45+', label: 'Templates' },
+  { value: '99.9%', label: 'Satisfaction' },
+  { value: '4.9/5', label: 'Rating' }
 ]
 
 export const Testimonials = () => {
@@ -54,13 +54,13 @@ export const Testimonials = () => {
           className="text-center mb-20"
         >
           <span className="text-xs md:text-sm font-semibold text-indigo-500 dark:text-indigo-400 tracking-widest uppercase mb-3 block">
-            Ý kiến cộng đồng
+            Community Feedback
           </span>
           <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary via-text-secondary to-indigo-500 dark:to-indigo-400 bg-clip-text text-transparent leading-tight">
-            Được Tin Dùng Bởi Lập Trình Viên
+            Trusted by Developers
           </h2>
           <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Các chuyên gia frontend và thiết kế nói gì về ZenithUI.
+            What frontend developers and designers say about ZenithUI.
           </p>
         </motion.div>
 

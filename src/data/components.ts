@@ -15,7 +15,7 @@ export interface UIComponent {
 }
 
 export const categories = [
-  { value: 'all', label: 'Tất cả', icon: '🎨' },
+  { value: 'all', label: 'All', icon: '🎨' },
   { value: 'buttons', label: 'Buttons', icon: '🔘' },
   { value: 'cards', label: 'Cards', icon: '🃏' },
   { value: 'navbars', label: 'Navigation', icon: '🧭' },
@@ -37,7 +37,7 @@ export const componentsData: UIComponent[] = [
   {
     id: 'btn-neon-glow',
     name: 'Neon Glow Button',
-    description: 'Button với hiệu ứng neon phát sáng tuyệt đẹp, hover để xem animation rực rỡ.',
+    description: 'Button with stunning neon glowing effects, hover to see vibrant animations.',
     category: 'buttons',
     tags: ['neon', 'glow', 'animation', 'hover'],
     framework: 'HTML/CSS',
@@ -91,7 +91,7 @@ body { display: flex; flex-wrap: wrap; align-items: center; justify-content: cen
   {
     id: 'btn-morphing',
     name: 'Morphing Gradient Button',
-    description: 'Button với gradient chuyển động liên tục, tạo hiệu ứng morphing cực đẹp.',
+    description: 'Button with continuously shifting gradients, creating a gorgeous morphing effect.',
     category: 'buttons',
     tags: ['gradient', 'morphing', 'animated'],
     framework: 'HTML/CSS',
@@ -136,7 +136,7 @@ body { display: flex; flex-wrap: wrap; align-items: center; justify-content: cen
   {
     id: 'btn-liquid',
     name: 'Liquid Fill Button',
-    description: 'Hiệu ứng nước chảy tràn lên nút khi hover, sử dụng CSS thuần.',
+    description: 'Liquid flow fill effect when hovering over the button, built with pure CSS.',
     category: 'buttons',
     tags: ['liquid', 'fill', 'creative', 'hover'],
     framework: 'HTML/CSS',
@@ -193,7 +193,7 @@ body { display: flex; flex-wrap: wrap; align-items: center; justify-content: cen
   {
     id: 'card-glass',
     name: 'Glassmorphism Card',
-    description: 'Card với hiệu ứng kính mờ (glassmorphism) đẹp mắt, backdrop blur và border gradient.',
+    description: 'Card with a beautiful glassmorphism effect, backdrop blur, and border gradient.',
     category: 'cards',
     tags: ['glass', 'blur', 'modern', 'premium'],
     framework: 'HTML/CSS',
@@ -205,17 +205,17 @@ body { display: flex; flex-wrap: wrap; align-items: center; justify-content: cen
   <div class="glass-card">
     <div class="card-icon">🚀</div>
     <h3>Premium Plan</h3>
-    <p>Truy cập không giới hạn mọi tính năng cao cấp</p>
-    <div class="price">$29<span>/tháng</span></div>
-    <button class="card-btn">Bắt đầu ngay</button>
+    <p>Unlimited access to all premium features</p>
+    <div class="price">$29<span>/month</span></div>
+    <button class="card-btn">Get Started</button>
   </div>
   <div class="glass-card featured">
     <div class="badge">Popular</div>
     <div class="card-icon">💎</div>
     <h3>Enterprise</h3>
-    <p>Giải pháp tùy chỉnh cho doanh nghiệp lớn</p>
-    <div class="price">$99<span>/tháng</span></div>
-    <button class="card-btn">Liên hệ</button>
+    <p>Custom solutions for large enterprises</p>
+    <div class="price">$99<span>/month</span></div>
+    <button class="card-btn">Contact Us</button>
   </div>
 </div>`,
     cssCode: `.glass-container {
@@ -274,7 +274,7 @@ body { display: flex; flex-wrap: wrap; align-items: center; justify-content: cen
   {
     id: 'card-hover-3d',
     name: '3D Hover Card',
-    description: 'Card với hiệu ứng xoay 3D khi hover chuột, perspective transform đẹp mắt.',
+    description: 'Card with a 3D rotation effect on hover, featuring perspective transform.',
     category: 'cards',
     tags: ['3d', 'perspective', 'hover', 'transform'],
     framework: 'HTML/CSS/JS',
@@ -287,7 +287,7 @@ body { display: flex; flex-wrap: wrap; align-items: center; justify-content: cen
       <div class="card-3d-glow"></div>
       <span class="card-emoji">🎯</span>
       <h3>Interactive 3D</h3>
-      <p>Di chuyển chuột trên card để xem hiệu ứng 3D tương tác</p>
+      <p>Move your mouse over the card to view the interactive 3D effect</p>
     </div>
   </div>
   <div class="card-3d" onmousemove="handleMove(event)" onmouseleave="handleLeave(event)">
@@ -295,7 +295,7 @@ body { display: flex; flex-wrap: wrap; align-items: center; justify-content: cen
       <div class="card-3d-glow"></div>
       <span class="card-emoji">⚡</span>
       <h3>Lightning Fast</h3>
-      <p>Hiệu suất cao với CSS transform và GPU acceleration</p>
+      <p>High performance with CSS transform and GPU acceleration</p>
     </div>
   </div>
 </div>`,
@@ -359,7 +359,7 @@ function handleLeave(e) {
   {
     id: 'nav-floating',
     name: 'Floating Glassmorphism Navbar',
-    description: 'Thanh điều hướng nổi với hiệu ứng kính mờ, blur backdrop và animation tinh tế.',
+    description: 'Floating navigation bar with glassmorphism, backdrop blur, and subtle animations.',
     category: 'navbars',
     tags: ['floating', 'glass', 'blur', 'sticky'],
     framework: 'HTML/CSS',
@@ -445,7 +445,7 @@ function handleLeave(e) {
   {
     id: 'hero-gradient-mesh',
     name: 'Gradient Mesh Hero',
-    description: 'Hero section với gradient mesh background animation, typography đẹp và CTA buttons.',
+    description: 'Hero section with a gradient mesh background animation, elegant typography, and CTA buttons.',
     category: 'heroes',
     tags: ['gradient', 'mesh', 'landing', 'animated'],
     framework: 'HTML/CSS',
@@ -462,7 +462,7 @@ function handleLeave(e) {
   <div class="hero-content">
     <span class="hero-badge">✨ New Release v2.0</span>
     <h1 class="hero-title">Build Beautiful<br/><span class="gradient-text">Digital Experiences</span></h1>
-    <p class="hero-desc">Nền tảng thiết kế UI component hiện đại. Tạo giao diện đẹp mắt chỉ trong vài phút.</p>
+    <p class="hero-desc">Modern UI component design platform. Build stunning interfaces in minutes.</p>
     <div class="hero-actions">
       <button class="hero-btn primary">Get Started Free</button>
       <button class="hero-btn secondary">Watch Demo →</button>
@@ -538,7 +538,7 @@ function handleLeave(e) {
   {
     id: 'form-floating-labels',
     name: 'Floating Labels Form',
-    description: 'Form đăng nhập đẹp với floating label animation, validation states và gradient border.',
+    description: 'Beautiful login form with floating label animation, validation states, and gradient border.',
     category: 'forms',
     tags: ['floating-label', 'login', 'validation', 'animated'],
     framework: 'HTML/CSS',
@@ -548,7 +548,7 @@ function handleLeave(e) {
     htmlCode: `<div class="form-container">
   <form class="floating-form">
     <h2>Welcome Back</h2>
-    <p class="form-subtitle">Đăng nhập vào tài khoản của bạn</p>
+    <p class="form-subtitle">Sign in to your account</p>
     <div class="input-group">
       <input type="email" id="email" required placeholder=" ">
       <label for="email">Email Address</label>
@@ -564,7 +564,7 @@ function handleLeave(e) {
       <a href="#">Forgot password?</a>
     </div>
     <button type="submit" class="form-submit">Sign In</button>
-    <p class="form-footer">Chưa có tài khoản? <a href="#">Đăng ký ngay</a></p>
+    <p class="form-footer">Don't have an account? <a href="#">Sign up now</a></p>
   </form>
 </div>`,
     cssCode: `.form-container {
@@ -634,7 +634,7 @@ function handleLeave(e) {
   {
     id: 'loader-orbit',
     name: 'Orbit Loader',
-    description: 'Loader với các vòng tròn quay quỹ đạo 3D, hiệu ứng không gian ấn tượng.',
+    description: 'Loader with 3D orbiting circles, creating an impressive space-age effect.',
     category: 'loaders',
     tags: ['orbit', '3d', 'space', 'spinner'],
     framework: 'HTML/CSS',
@@ -691,7 +691,7 @@ function handleLeave(e) {
   {
     id: 'loader-wave-dots',
     name: 'Wave Dots Loader',
-    description: 'Loader dạng sóng với các chấm nhảy nhịp nhàng, gradient colors đẹp mắt.',
+    description: 'Wave loader with gently bouncing dots and beautiful gradient colors.',
     category: 'loaders',
     tags: ['dots', 'wave', 'bouncing', 'minimal'],
     framework: 'HTML/CSS',
@@ -734,7 +734,7 @@ function handleLeave(e) {
   {
     id: 'anim-text-reveal',
     name: 'Text Reveal Animation',
-    description: 'Hiệu ứng text hiện ra từng chữ với gradient và glow effect.',
+    description: 'Text reveal animation showing letters individually with gradients and glow effects.',
     category: 'animations',
     tags: ['text', 'reveal', 'gradient', 'typewriter'],
     framework: 'HTML/CSS',
@@ -782,7 +782,7 @@ function handleLeave(e) {
   {
     id: 'anim-particle-bg',
     name: 'Particle Background',
-    description: 'Background với các hạt particle bay ngẫu nhiên, tạo hiệu ứng không gian sâu.',
+    description: 'Background with randomly floating particles, creating a deep space effect.',
     category: 'animations',
     tags: ['particle', 'background', 'space', 'ambient'],
     framework: 'HTML/CSS',
@@ -846,7 +846,7 @@ function handleLeave(e) {
   {
     id: 'modal-glass',
     name: 'Glassmorphism Modal',
-    description: 'Modal popup với hiệu ứng glassmorphism, animation mở/đóng mượt mà.',
+    description: 'Modal popup with glassmorphism effect and smooth open/close animations.',
     category: 'modals',
     tags: ['glass', 'popup', 'dialog', 'overlay'],
     framework: 'HTML/CSS/JS',
@@ -862,10 +862,10 @@ function handleLeave(e) {
       <button class="modal-close" onclick="document.getElementById('glass-modal').classList.remove('active')">✕</button>
       <div class="modal-icon">🎉</div>
       <h2>Congratulations!</h2>
-      <p>Bạn đã hoàn thành setup thành công. Bắt đầu khám phá các tính năng mới ngay!</p>
+      <p>You have successfully completed the setup. Start exploring new features now!</p>
       <div class="modal-actions">
-        <button class="modal-btn primary" onclick="document.getElementById('glass-modal').classList.remove('active')">Bắt đầu ngay</button>
-        <button class="modal-btn secondary" onclick="document.getElementById('glass-modal').classList.remove('active')">Để sau</button>
+        <button class="modal-btn primary" onclick="document.getElementById('glass-modal').classList.remove('active')">Get Started</button>
+        <button class="modal-btn secondary" onclick="document.getElementById('glass-modal').classList.remove('active')">Maybe later</button>
       </div>
     </div>
   </div>
@@ -935,7 +935,7 @@ function handleLeave(e) {
   {
     id: 'footer-modern',
     name: 'Modern Dark Footer',
-    description: 'Footer hiện đại với grid layout, social links và gradient accents.',
+    description: 'Modern footer with a grid layout, social links, and gradient accents.',
     category: 'footers',
     tags: ['dark', 'social', 'grid', 'modern'],
     framework: 'HTML/CSS',
@@ -946,7 +946,7 @@ function handleLeave(e) {
   <div class="footer-grid">
     <div class="footer-brand">
       <h3><span class="brand-dot">◆</span> Brand</h3>
-      <p>Xây dựng những trải nghiệm số tuyệt vời với component library hiện đại.</p>
+      <p>Build outstanding digital experiences with our modern component library.</p>
       <div class="social-links">
         <a href="#" class="social-link">𝕏</a>
         <a href="#" class="social-link">in</a>
@@ -1026,7 +1026,7 @@ function handleLeave(e) {
   {
     id: 'layout-bento-grid',
     name: 'Bento Grid Layout',
-    description: 'Layout dạng Bento grid (giống Apple) với các card có kích thước khác nhau, hover effects.',
+    description: 'Bento grid layout (Apple-style) with cards of varying dimensions and hover effects.',
     category: 'layouts',
     tags: ['bento', 'grid', 'apple', 'dashboard'],
     framework: 'HTML/CSS',
@@ -1039,7 +1039,7 @@ function handleLeave(e) {
     <div class="bento-content">
       <span class="bento-icon">📊</span>
       <h3>Analytics Dashboard</h3>
-      <p>Theo dõi hiệu suất realtime</p>
+      <p>Track performance in real-time</p>
     </div>
   </div>
   <div class="bento-item">
@@ -1060,7 +1060,7 @@ function handleLeave(e) {
     <div class="bento-content">
       <span class="bento-icon">🎨</span>
       <h3>Design System</h3>
-      <p>50+ components có sẵn cho mọi dự án</p>
+      <p>50+ components ready for any project</p>
     </div>
   </div>
   <div class="bento-item">
@@ -1128,7 +1128,7 @@ body { min-height: 100vh; display: flex; align-items: center; justify-content: c
   {
     id: 'btn-ripple',
     name: 'Ripple Effect Button',
-    description: 'Button với hiệu ứng gợn sóng nước (ripple effect) mượt mà khi click, mô phỏng Material Design.',
+    description: 'Button with a smooth ripple effect on click, simulating Material Design.',
     category: 'buttons',
     tags: ['ripple', 'material', 'click', 'animation'],
     framework: 'HTML/CSS/JS',
@@ -1161,7 +1161,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'btn-3d-push',
     name: '3D Push Button',
-    description: 'Nút nhấn phong cách 3D chân thực, lõm xuống khi click cực đã tay.',
+    description: 'Realistic 3D push button that physically depresses on click.',
     category: 'buttons',
     tags: ['3d', 'push', 'click', 'retro'],
     framework: 'HTML/CSS',
@@ -1197,7 +1197,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'btn-glow-slide',
     name: 'Glow Slide Button',
-    description: 'Nút có hiệu ứng trượt màu gradient phát sáng từ trái sang phải vô cùng thời thượng.',
+    description: 'Button with a trendy gradient slide animation shining from left to right.',
     category: 'buttons',
     tags: ['hover', 'slide', 'gradient', 'glow'],
     framework: 'HTML/CSS',
@@ -1232,7 +1232,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'btn-social-share',
     name: 'Social Share Expand Button',
-    description: 'Button chia sẻ mở rộng theo chiều ngang khi click hoặc hover, chứa các icon MXH.',
+    description: 'Share button expanding horizontally on hover/click, hosting social icons.',
     category: 'buttons',
     tags: ['social', 'expand', 'hover', 'interactive'],
     framework: 'HTML/CSS',
@@ -1276,7 +1276,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'card-flip',
     name: 'Hover 3D Flip Card',
-    description: 'Card xoay 180 độ lật mặt sau với hiệu ứng chuyển đổi 3D chân thực.',
+    description: 'Card flipping 180 degrees to show its back side with a realistic 3D transition.',
     category: 'cards',
     tags: ['flip', 'card', '3d', 'hover'],
     framework: 'HTML/CSS',
@@ -1325,7 +1325,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'card-product',
     name: 'Premium Product Card',
-    description: 'Card sản phẩm thương mại điện tử sang trọng, ảnh phóng to nhẹ và nút chọn size.',
+    description: 'Luxury e-commerce card with subtle image zoom and size selection buttons.',
     category: 'cards',
     tags: ['product', 'e-commerce', 'premium', 'hover'],
     framework: 'HTML/CSS',
@@ -1390,7 +1390,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'card-stats',
     name: 'Stats Progress Card',
-    description: 'Card hiển thị chỉ số đo lường với thanh tiến trình tròn chạy animation.',
+    description: 'Metric dashboard card featuring an animated circular progress bar.',
     category: 'cards',
     tags: ['stats', 'progress', 'circle', 'dashboard'],
     framework: 'HTML/CSS',
@@ -1441,7 +1441,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'card-team',
     name: 'Team Profile Card',
-    description: 'Card giới thiệu thành viên dự án, hover hiển thị info mạng xã hội.',
+    description: 'Team profile card revealing social media handles on hover.',
     category: 'cards',
     tags: ['team', 'profile', 'hover', 'social'],
     framework: 'HTML/CSS',
@@ -1493,7 +1493,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'nav-sidebar',
     name: 'Floating Sidebar Menu',
-    description: 'Thanh menu bên hông dạng nổi, tự động phóng to hiển thị chữ khi hover.',
+    description: 'Floating sidebar menu that automatically expands on hover.',
     category: 'navbars',
     tags: ['sidebar', 'navigation', 'floating', 'hover'],
     framework: 'HTML/CSS',
@@ -1551,7 +1551,7 @@ body { min-height: 100vh; background: #030712; }`
   {
     id: 'nav-segmented',
     name: 'Segmented Tab Control',
-    description: 'Thanh tab chuyển đổi với nền trượt mượt mà theo tab được chọn.',
+    description: 'Tab switcher with a smooth sliding background follow effect.',
     category: 'navbars',
     tags: ['tabs', 'segmented', 'slide', 'navigation'],
     framework: 'HTML/CSS/JS',
@@ -1596,7 +1596,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'hero-split',
     name: 'Modern Split Hero Section',
-    description: 'Bố cục Hero chia đôi, bên trái là tiêu đề bắt mắt, bên phải là card tương tác.',
+    description: 'Split Hero layout, featuring a prominent title on the left and an interactive card on the right.',
     category: 'heroes',
     tags: ['hero', 'split', 'layout', 'landing'],
     framework: 'HTML/CSS',
@@ -1607,7 +1607,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   <div class="split-left">
     <span class="promo-badge">Now Open Source</span>
     <h1>Redefine Digital Layouts</h1>
-    <p>Hệ thống component mẫu được làm thủ công bằng cả trái tim để hỗ trợ bạn thiết kế web nhanh hơn.</p>
+    <p>UI component library handcrafted with heart to help you design websites faster.</p>
     <div class="btn-group">
       <button class="btn-primary">Explore Now</button>
       <button class="btn-secondary">GitHub</button>
@@ -1670,7 +1670,7 @@ body { background: #07070d; }`
   {
     id: 'hero-video-bg',
     name: 'Video Background Hero',
-    description: 'Trang chủ với background video lặp vô tận phủ lớp màu tối cho text nổi bật.',
+    description: 'Homepage layout with an infinite loop video background and a dark contrast overlay.',
     category: 'heroes',
     tags: ['hero', 'video', 'background', 'landing'],
     framework: 'HTML/CSS',
@@ -1682,7 +1682,7 @@ body { background: #07070d; }`
   <div class="video-placeholder"></div>
   <div class="hero-video-content">
     <h1>Experience True Power</h1>
-    <p>Tối ưu hóa quy trình làm việc và chất lượng sản phẩm.</p>
+    <p>Optimize workflow and product quality.</p>
     <button class="hero-video-btn">Start Designing</button>
   </div>
 </div>`,
@@ -1713,7 +1713,7 @@ body { background: #07070d; }`
   {
     id: 'form-contact',
     name: 'Glassmorphism Contact Form',
-    description: 'Form liên hệ tinh xảo, chống lóa mắt, bo góc mềm mại phong cách Glassmorphism.',
+    description: 'Polished glassmorphism contact form with smooth rounded corners.',
     category: 'forms',
     tags: ['contact', 'form', 'glassmorphism', 'submit'],
     framework: 'HTML/CSS',
@@ -1765,7 +1765,7 @@ body { background: #07070d; }`
   {
     id: 'form-search',
     name: 'Interactive Search Bar',
-    description: 'Thanh tìm kiếm phản hồi nhanh, mở rộng nhẹ khi click và gợi ý kết quả.',
+    description: 'Reactive search bar that expands slightly on click with dynamic recommendations.',
     category: 'forms',
     tags: ['search', 'input', 'interactive', 'suggest'],
     framework: 'HTML/CSS/JS',
@@ -1824,7 +1824,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'form-newsletter',
     name: 'Newsletter Signup Card',
-    description: 'Card đăng ký nhận tin với thiết kế ngang gọn gàng, hiệu ứng phản hồi gửi thành công.',
+    description: 'Newsletter subscription card with a clean horizontal layout and success state animation.',
     category: 'forms',
     tags: ['newsletter', 'signup', 'card', 'feedback'],
     framework: 'HTML/CSS',
@@ -1833,7 +1833,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
     createdAt: '2026-02-25',
     htmlCode: `<div class="newsletter-card">
   <h4>Keep in Touch</h4>
-  <p>Nhận bài viết và components mới nhất hàng tuần.</p>
+  <p>Get the latest articles and components weekly.</p>
   <div class="newsletter-form">
     <input type="email" placeholder="enter@email.com">
     <button class="subscribe-btn">Subscribe</button>
@@ -1861,7 +1861,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'footer-minimal',
     name: 'Minimalist Social Footer',
-    description: 'Footer tối giản, cấu trúc hàng ngang cân đối, liên kết mạng xã hội sang trọng.',
+    description: 'Minimalist footer with a balanced horizontal layout and elegant social links.',
     category: 'footers',
     tags: ['footer', 'minimal', 'social', 'dark'],
     framework: 'HTML/CSS',
@@ -1906,7 +1906,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'anim-marquee',
     name: 'Infinite Marquee Carousel',
-    description: 'Dải chữ chạy vô tận bằng CSS thuần, lý tưởng làm băng rôn đối tác hoặc thông báo.',
+    description: 'Infinite marquee text slider in pure CSS, ideal for sponsor banners or announcements.',
     category: 'animations',
     tags: ['marquee', 'infinite', 'text', 'carousel'],
     framework: 'HTML/CSS',
@@ -1958,7 +1958,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'anim-hover-underline',
     name: 'Hover Underline Wave',
-    description: 'Hiệu ứng gạch chân sóng lượn khi hover chuột qua liên kết menu.',
+    description: 'Playful wavy underline effect when hovering over menu links.',
     category: 'animations',
     tags: ['hover', 'underline', 'menu', 'link'],
     framework: 'HTML/CSS',
@@ -1989,7 +1989,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'anim-counter',
     name: 'Stats Counter Reveal',
-    description: 'Hiệu ứng đếm số tăng dần từ 0 chạy bằng JavaScript cực kì trơn tru.',
+    description: 'Number counter counting up smoothly from 0 via Javascript.',
     category: 'animations',
     tags: ['counter', 'countup', 'javascript', 'stats'],
     framework: 'HTML/CSS/JS',
@@ -2028,7 +2028,7 @@ updateCount();`
   {
     id: 'layout-masonry',
     name: 'Modern Masonry Grid',
-    description: 'Layout dạng lưới Masonry (như Pinterest) tự do, linh hoạt, hỗ trợ ảnh kích thước khác nhau.',
+    description: 'Masonry grid layout (Pinterest-style) supporting multi-height images dynamically.',
     category: 'layouts',
     tags: ['masonry', 'grid', 'pinterest', 'gallery'],
     framework: 'HTML/CSS',
@@ -2062,7 +2062,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'layout-split-screen',
     name: 'Split Screen Layout',
-    description: 'Layout chia đôi màn hình độc đáo, cuộn độc lập giữa 2 phần trái và phải.',
+    description: 'Unique split-screen layout with independent scrolling for left and right columns.',
     category: 'layouts',
     tags: ['split-screen', 'layout', 'scrolling', 'independent'],
     framework: 'HTML/CSS',
@@ -2093,7 +2093,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'modal-confirm',
     name: 'Confirm Dialog Alert',
-    description: 'Hộp thoại xác nhận cảnh báo hành động hủy hoại (xóa dữ liệu) trực quan, bảo mật.',
+    description: 'Destructive confirmation modal (e.g. data deletion) with intuitive safety actions.',
     category: 'modals',
     tags: ['confirm', 'dialog', 'modal', 'danger'],
     framework: 'HTML/CSS/JS',
@@ -2105,7 +2105,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   <div class="confirm-overlay" id="confirm-modal" onclick="if(event.target===this) toggleConfirm(false)">
     <div class="confirm-card">
       <h3>Are you sure?</h3>
-      <p>Hành động này không thể hoàn tác. Dữ liệu của bạn sẽ bị xóa vĩnh viễn.</p>
+      <p>This action cannot be undone. Your data will be permanently deleted.</p>
       <div class="confirm-actions">
         <button class="btn-cancel" onclick="toggleConfirm(false)">Cancel</button>
         <button class="btn-delete" onclick="alert('Account Deleted'); toggleConfirm(false)">Delete</button>
@@ -2148,7 +2148,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'modal-toast',
     name: 'Toast Notification Stack',
-    description: 'Thanh thông báo nổi góc màn hình tự ẩn đi sau 3 giây rất dễ sử dụng.',
+    description: 'Toast notification banner popping up on the screen corner, auto-closing after 3s.',
     category: 'modals',
     tags: ['toast', 'notification', 'alert', 'pop'],
     framework: 'HTML/CSS/JS',
@@ -2194,7 +2194,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'loader-skeleton',
     name: 'Skeleton Card Loader',
-    description: 'Hiệu ứng nhấp nháy chuyển màu (skeleton shimmer) giả lập nội dung đang tải của Facebook.',
+    description: 'Skeleton shimmer loader simulating content loading states.',
     category: 'loaders',
     tags: ['skeleton', 'shimmer', 'loading', 'bento'],
     framework: 'HTML/CSS',
@@ -2238,7 +2238,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'loader-circular',
     name: 'Circular Progress Tracker',
-    description: 'Loader hình tròn xoay vô hạn với gradient mềm mại tuyệt đẹp.',
+    description: 'Circular infinite spinner loader with a smooth, beautiful gradient.',
     category: 'loaders',
     tags: ['loader', 'spinner', 'circle', 'gradient'],
     framework: 'HTML/CSS',
@@ -2260,7 +2260,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'loader-typing',
     name: 'Typing Status Dot Loader',
-    description: 'Hiệu ứng ba dấu chấm nhấp nháy lơ lửng, giả lập trạng thái đối phương đang gõ tin nhắn.',
+    description: 'Floating triple dot bouncing animation, simulating a chat typing indicator.',
     category: 'loaders',
     tags: ['typing', 'chat', 'status', 'dots'],
     framework: 'HTML/CSS',
@@ -2291,7 +2291,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'toggle-switch',
     name: 'Smooth Switch Toggle',
-    description: 'Công tắc bật/tắt (switch control) phong cách iOS với bóng đổ mượt mà.',
+    description: 'iOS-style toggle switch control with smooth transitions and drop shadow.',
     category: 'toggles',
     tags: ['toggle', 'switch', 'checkbox', 'ios'],
     framework: 'HTML/CSS',
@@ -2328,7 +2328,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'toggle-theme',
     name: 'Dark Mode Theme Switcher',
-    description: 'Nút chuyển đổi chế độ sáng/tối với animation mặt trời xoay biến thành mặt trăng.',
+    description: 'Light/Dark mode button switcher with sun-to-moon rotation animation.',
     category: 'toggles',
     tags: ['theme', 'darkmode', 'sun', 'moon'],
     framework: 'HTML/CSS/JS',
@@ -2359,7 +2359,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'tooltip-animated',
     name: 'Animated Rich Tooltip',
-    description: 'Chú giải (tooltip) hiển thị thông tin nâng cao, trượt mượt mà lên trên khi hover.',
+    description: 'Tooltip popup sliding up smoothly on hover to show descriptive text.',
     category: 'tooltips',
     tags: ['tooltip', 'hover', 'animated', 'card'],
     framework: 'HTML/CSS',
@@ -2401,7 +2401,7 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   {
     id: 'tooltip-popover',
     name: 'Interactive Popover Menu',
-    description: 'Menu nhỏ (popover) xuất hiện khi click, chứa danh sách hành động nhanh.',
+    description: 'Popover menu revealing a list of quick actions on click.',
     category: 'tooltips',
     tags: ['popover', 'menu', 'click', 'interactive'],
     framework: 'HTML/CSS/JS',

@@ -79,7 +79,7 @@ const ComponentPreview = ({
     return (
       <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
         <div className="text-center p-4">
-          <p className="text-gray-500 text-sm">Preview không khả dụng</p>
+          <p className="text-gray-500 text-sm">Preview not available</p>
         </div>
       </div>
     )

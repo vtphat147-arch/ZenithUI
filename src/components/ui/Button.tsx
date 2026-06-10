@@ -16,7 +16,7 @@ export const Button = ({
 }: ButtonProps) => {
   const variants = {
     primary: 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white',
-    secondary: 'bg-white/10 backdrop-blur-md border border-white/20 text-white',
+    secondary: 'bg-tertiary border border-border-primary text-text-primary hover:bg-secondary/80 backdrop-blur-md',
     glow: 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-[0_0_30px_rgba(102,126,234,0.5)]'
   }
 

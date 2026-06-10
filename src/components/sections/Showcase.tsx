@@ -67,7 +67,7 @@ export const Showcase = () => {
 
             {/* View Source indicator on hover */}
             <div className="preview-overlay flex items-center justify-center gap-2 text-white font-semibold text-xs tracking-wider z-20">
-              <span>Xem Code</span>
+              <span>View Code</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </div>
           </div>
@@ -117,13 +117,13 @@ export const Showcase = () => {
           className="text-center"
         >
           <span className="text-xs md:text-sm font-semibold text-pink-500 dark:text-pink-400 tracking-widest uppercase mb-3 block">
-            Thư viện thiết kế
+            Design Showcase
           </span>
           <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary via-text-secondary to-pink-500 dark:to-pink-400 bg-clip-text text-transparent leading-tight">
-            Thư Viện Component Mẫu
+            Featured Components
           </h2>
           <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Xem trước một số thiết kế nổi bật. Hover chuột vào thẻ để tạm dừng hoặc click để lấy toàn bộ code.
+            Preview our top pre-made UI patterns. Hover over any card to pause scrolling, or click to copy the code.
           </p>
         </motion.div>
       </div>

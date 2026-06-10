@@ -1,43 +1,34 @@
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { motion } from 'framer-motion'
-import { Suspense, useState } from 'react'
-import { ParticleSystem } from '../3d/ParticleSystem'
-import { GeometricShapes } from '../3d/GeometricShapes'
+import { useState } from 'react'
 import { Button } from '../ui/Button'
 import { Link } from 'react-router-dom'
-import { Loading3D } from '../3d/Loading3D'
 import Toast from '../Toast'
 
 export const Hero = () => {
   const [showToast, setShowToast] = useState(false)
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-primary transition-colors duration-500">
-      {/* 3D Background */}
-      <div className="absolute inset-0 z-0 opacity-80 dark:opacity-100">
-        <Canvas
-          gl={{ 
-            antialias: true, 
-            alpha: true,
-            powerPreference: "high-performance"
-          }}
-          dpr={typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 2) : 1}
-        >
-          <Suspense fallback={<Loading3D />}>
-            <PerspectiveCamera makeDefault position={[0, 0, 5]} />
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} color="#6366f1" />
-            <pointLight position={[-10, -10, -10]} intensity={1} color="#d946ef" />
-            <pointLight position={[0, -5, 5]} intensity={0.5} color="#00ff88" />
-            <ParticleSystem count={typeof window !== 'undefined' && window.innerWidth < 768 ? 500 : 1500} color="#6366f1" />
-            <GeometricShapes />
-          </Suspense>
-        </Canvas>
+    <section className="relative h-screen w-full overflow-hidden bg-[#fbfaf7] dark:bg-[#090915] transition-colors duration-500">
+      
+      {/* Modern Grid Line Pattern (Claude / SaaS style) */}
+      <div className="absolute inset-0 opacity-[0.35] dark:opacity-[0.12] pointer-events-none z-1">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid-lines" width="56" height="56" patternUnits="userSpaceOnUse">
+              <path d="M 56 0 L 0 0 0 56" fill="none" stroke="currentColor" strokeWidth="1" className="text-slate-900/10 dark:text-white/10" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-lines)" />
+        </svg>
+      </div>
+
+      {/* Abstract Glowing Blobs in Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[10%] left-[15%] w-[350px] md:w-[650px] h-[350px] md:h-[650px] rounded-full bg-indigo-500/10 dark:bg-indigo-500/10 blur-[100px] md:blur-[130px] animate-float-slow"></div>
+        <div className="absolute bottom-[10%] right-[15%] w-[300px] md:w-[550px] h-[300px] md:h-[550px] rounded-full bg-pink-500/10 dark:bg-pink-500/10 blur-[90px] md:blur-[120px] animate-float-delayed"></div>
       </div>
 
       {/* Subtle Mesh Background Overlay */}
-      <div className="absolute inset-0 bg-radial-mesh opacity-20 dark:opacity-30 pointer-events-none z-1"></div>
+      <div className="absolute inset-0 bg-radial-mesh opacity-[0.15] dark:opacity-30 pointer-events-none z-1"></div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 max-w-7xl mx-auto w-full pt-16 md:pt-0">
@@ -47,7 +38,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-tertiary border border-border-primary backdrop-blur-md mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary border border-border-primary shadow-sm mb-6"
           >
             <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
@@ -68,11 +59,11 @@ export const Hero = () => {
               letterSpacing: '-2px',
             }}
           >
-            <span className="bg-gradient-to-r from-indigo-900 via-purple-800 to-pink-800 dark:from-indigo-200 dark:via-purple-300 dark:to-pink-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-indigo-100 dark:to-white bg-clip-text text-transparent">
               Elevate Your
             </span>
             <br />
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.15)] dark:drop-shadow-[0_0_30px_rgba(168,85,247,0.35)] font-extrabold">
+            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(102,126,234,0.15)] dark:drop-shadow-[0_0_30px_rgba(168,85,247,0.35)] font-extrabold">
               ZenithUI Experience
             </span>
           </motion.h1>
@@ -84,7 +75,7 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-lg md:text-xl text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            Thư viện component mẫu chất lượng cao, thiết kế hiện đại, tương tác 3D mượt mà và hoàn toàn miễn phí.
+            High-quality component library, modern designs, smooth interactions, completely free.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -95,17 +86,17 @@ export const Hero = () => {
             className="flex gap-4 justify-center flex-wrap mb-14"
           >
             <Link to="/components">
-              <Button variant="glow" className="px-8 py-4 text-base font-bold">Khám phá ngay</Button>
+              <Button variant="glow" className="px-8 py-4 text-base font-bold">Explore Now</Button>
             </Link>
             <Button 
               variant="secondary"
-              className="px-8 py-4 text-base font-medium bg-tertiary border-border-primary hover:bg-secondary text-text-primary backdrop-blur-sm"
+              className="px-8 py-4 text-base font-medium"
               onClick={() => setShowToast(true)}
             >
-              Xem Demo
+              View Demo
             </Button>
           </motion.div>
-
+          
           {/* Quick Stats */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -128,16 +119,16 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Floating Interactive Micro Cards (Only shown on Desktop) */}
+        {/* Floating Interactive Micro Cards (SaaS Widgets style) */}
         <div className="hidden lg:block absolute inset-x-0 bottom-24 pointer-events-none z-5 h-0 overflow-visible">
           <div className="max-w-7xl mx-auto w-full relative">
             <motion.div
               initial={{ opacity: 0, x: -50, y: 30 }}
               animate={{ opacity: 0.8, x: 0, y: 0 }}
               transition={{ delay: 0.7, duration: 1 }}
-              className="absolute left-8 bottom-4 w-52 p-4 rounded-xl bg-tertiary border border-border-primary backdrop-blur-md flex items-center gap-3"
+              className="absolute left-8 bottom-4 w-52 p-4 rounded-xl bg-secondary border border-border-primary shadow-sm flex items-center gap-3"
             >
-              <div className="p-2 rounded-lg bg-indigo-500/20 text-indigo-500 dark:text-indigo-400">🔘</div>
+              <div className="p-2 rounded-lg bg-indigo-500/20 text-indigo-600 dark:text-indigo-400">🔘</div>
               <div>
                 <div className="text-xs font-bold text-text-primary">3D Push Button</div>
                 <div className="text-[10px] text-text-muted">Click interactions ready</div>
@@ -148,9 +139,9 @@ export const Hero = () => {
               initial={{ opacity: 0, x: 50, y: 30 }}
               animate={{ opacity: 0.8, x: 0, y: 0 }}
               transition={{ delay: 0.8, duration: 1 }}
-              className="absolute right-8 bottom-12 w-56 p-4 rounded-xl bg-tertiary border border-border-primary backdrop-blur-md flex items-center gap-3"
+              className="absolute right-8 bottom-12 w-56 p-4 rounded-xl bg-secondary border border-border-primary shadow-sm flex items-center gap-3"
             >
-              <div className="p-2 rounded-lg bg-pink-500/20 text-pink-500 dark:text-pink-400">🃏</div>
+              <div className="p-2 rounded-lg bg-pink-500/20 text-pink-600 dark:text-pink-400">🃏</div>
               <div>
                 <div className="text-xs font-bold text-text-primary">Glassmorphism Card</div>
                 <div className="text-[10px] text-text-muted">Smooth hover transitions</div>
@@ -170,7 +161,7 @@ export const Hero = () => {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-5 h-9 border-2 border-text-primary/30 rounded-full flex justify-center"
+          className="w-5 h-9 border-2 border-border-primary rounded-full flex justify-center"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
@@ -182,7 +173,7 @@ export const Hero = () => {
 
       {/* Toast Notification */}
       <Toast
-        message="Trang giới thiệu Demo đang được thiết lập!"
+        message="Demo showcase is currently being set up!"
         isOpen={showToast}
         onClose={() => setShowToast(false)}
         duration={3000}

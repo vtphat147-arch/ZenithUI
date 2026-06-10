@@ -18,8 +18,8 @@ const Footer = () => {
               <span className="text-lg font-bold text-text-primary">ZenithUI</span>
             </Link>
             <p className="text-text-secondary text-sm leading-relaxed max-w-sm mb-6">
-              Kho UI/UX component miễn phí dành cho developers và designers. 
-              Copy code và sử dụng ngay trong dự án của bạn.
+              Free UI/UX component library for developers and designers. 
+              Copy and paste code directly into your projects.
             </p>
             <div className="flex items-center gap-1.5 text-sm text-text-muted">
               <span>Made with</span>
@@ -35,7 +35,7 @@ const Footer = () => {
             </h4>
             <div className="space-y-3">
               <Link to="/" className="block text-sm text-text-secondary hover:text-accent-400 transition-colors duration-300">
-                Trang chủ
+                Home
               </Link>
               <Link to="/components" className="block text-sm text-text-secondary hover:text-accent-400 transition-colors duration-300">
                 Components

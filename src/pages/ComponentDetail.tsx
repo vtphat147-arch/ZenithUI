@@ -81,15 +81,15 @@ const ComponentDetail = () => {
       const initial: Comment[] = [
         {
           id: '1',
-          author: 'Lâm Nguyễn',
-          content: 'Code cực kỳ tối ưu và viết rất dễ hiểu. Layout CSS mượt mà lắm!',
+          author: 'Lam Nguyen',
+          content: 'Extremely clean and optimized code. The CSS layout is very smooth!',
           createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
           avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80'
         },
         {
           id: '2',
-          author: 'Trần Minh Hoàng',
-          content: 'Hiệu ứng đẹp thực sự. Mong tác giả làm thêm bản JSX/Tailwind nữa nhé.',
+          author: 'Minh Hoang Tran',
+          content: 'Gorgeous effect. Looking forward to the author releasing a JSX/Tailwind version.',
           createdAt: new Date(Date.now() - 3600000 * 24).toISOString(),
           avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80'
         }
@@ -214,7 +214,7 @@ const ComponentDetail = () => {
       case 'css':
         return component.cssCode
       case 'js':
-        return component.jsCode || '// Không có mã nguồn JavaScript cho component này.'
+        return component.jsCode || '// No JavaScript source code available for this component.'
       default:
         return ''
     }
@@ -236,9 +236,9 @@ const ComponentDetail = () => {
       <div className="min-h-screen bg-primary text-text-primary flex flex-col">
         <Header />
         <div className="flex-grow flex flex-col items-center justify-center px-4">
-          <h2 className="text-2xl font-bold mb-4">Component không tồn tại</h2>
+          <h2 className="text-2xl font-bold mb-4">Component does not exist</h2>
           <Link to="/components" className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 flex items-center gap-2">
-            <ArrowLeft className="w-5 h-5" /> Quay lại thư viện
+            <ArrowLeft className="w-5 h-5" /> Back to library
           </Link>
         </div>
       </div>
@@ -260,7 +260,7 @@ const ComponentDetail = () => {
             className="inline-flex items-center gap-2 px-4 py-2 bg-tertiary hover:bg-secondary border border-border-primary rounded-full text-text-secondary hover:text-text-primary transition-all duration-300 mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            Thư viện component
+            Component Library
           </Link>
         </motion.div>
 
@@ -341,7 +341,7 @@ const ComponentDetail = () => {
                 <button
                   onClick={() => setIsFullscreenPreview(true)}
                   className="p-2 hover:bg-text-primary/[0.05] rounded-lg text-text-secondary hover:text-text-primary transition-colors"
-                  title="Xem toàn màn hình"
+                  title="Full screen preview"
                 >
                   <Maximize2 className="w-5 h-5" />
                 </button>
@@ -409,11 +409,11 @@ const ComponentDetail = () => {
                       className="flex items-center gap-2 px-4 py-2.5 bg-tertiary hover:bg-secondary border border-border-primary rounded-xl text-text-secondary hover:text-text-primary transition-colors font-semibold text-sm"
                     >
                       <Share2 className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
-                      <span>Chia sẻ</span>
+                      <span>Share</span>
                     </button>
                     {showShareTooltip && (
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-indigo-600 text-white text-[11px] px-3 py-1 rounded-md font-bold shadow-xl border border-indigo-400 z-30 whitespace-nowrap">
-                        Đã copy link vào clipboard!
+                        Link copied to clipboard!
                       </div>
                     )}
                   </div>
@@ -425,7 +425,7 @@ const ComponentDetail = () => {
                       className="flex items-center gap-2 px-4 py-2.5 bg-tertiary hover:bg-secondary border border-border-primary rounded-xl text-text-secondary hover:text-text-primary transition-colors font-semibold text-sm"
                     >
                       <Download className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
-                      <span>Tải code</span>
+                      <span>Download</span>
                     </button>
                     {showDownloadMenu && (
                       <div className="absolute bottom-full left-0 mb-2 bg-secondary border border-border-primary rounded-xl p-2 shadow-2xl z-30 min-w-[160px]">
@@ -433,14 +433,14 @@ const ComponentDetail = () => {
                         <button onClick={() => downloadCode('css')} className="w-full text-left px-3 py-2 text-xs text-text-secondary hover:text-text-primary hover:bg-tertiary rounded-lg">CSS Code</button>
                         {component.jsCode && <button onClick={() => downloadCode('js')} className="w-full text-left px-3 py-2 text-xs text-text-secondary hover:text-text-primary hover:bg-tertiary rounded-lg">JavaScript Code</button>}
                         <div className="h-px bg-border-primary my-1" />
-                        <button onClick={() => downloadCode('all')} className="w-full text-left px-3 py-2 text-xs font-semibold text-emerald-500 dark:text-emerald-400 hover:bg-tertiary rounded-lg">Trọn gói HTML/CSS</button>
+                        <button onClick={() => downloadCode('all')} className="w-full text-left px-3 py-2 text-xs font-semibold text-emerald-500 dark:text-emerald-400 hover:bg-tertiary rounded-lg">Full Package HTML/CSS</button>
                       </div>
                     )}
                   </div>
                 </div>
 
                 <div className="text-xs text-text-muted italic">
-                  * Nhấp tải code trọn gói để lấy đầy đủ file HTML, CSS mẫu.
+                  * Click Full Package to download HTML, CSS, and JS files together.
                 </div>
               </div>
             </div>
@@ -486,7 +486,7 @@ const ComponentDetail = () => {
                     {copied === activeTab ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-green-500" />
-                        <span className="text-green-500">Đã copy!</span>
+                        <span className="text-green-500">Copied!</span>
                       </>
                     ) : (
                       <>
@@ -513,17 +513,17 @@ const ComponentDetail = () => {
             <div className="bg-secondary border border-border-primary rounded-3xl p-6 md:p-8">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                 <MessageSquare className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />
-                <span>Bình luận ({comments.length})</span>
+                <span>Comments ({comments.length})</span>
               </h3>
 
               {/* Comments form */}
               <form onSubmit={handleAddComment} className="mb-8 bg-tertiary/50 border border-border-primary p-5 rounded-2xl">
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-xs text-text-secondary font-bold uppercase tracking-wider mb-2">Tên của bạn</label>
+                    <label className="block text-xs text-text-secondary font-bold uppercase tracking-wider mb-2">Your Name</label>
                     <input
                       type="text"
-                      placeholder="Nhập tên..."
+                      placeholder="Enter your name..."
                       required
                       value={newCommentName}
                       onChange={(e) => setNewCommentName(e.target.value)}
@@ -532,10 +532,10 @@ const ComponentDetail = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-text-secondary font-bold uppercase tracking-wider mb-2">Nội dung bình luận</label>
+                  <label className="block text-xs text-text-secondary font-bold uppercase tracking-wider mb-2">Comment Content</label>
                   <textarea
                     rows={3}
-                    placeholder="Chia sẻ ý kiến của bạn về component này..."
+                    placeholder="Share your thoughts on this component..."
                     required
                     value={newCommentText}
                     onChange={(e) => setNewCommentText(e.target.value)}
@@ -547,7 +547,7 @@ const ComponentDetail = () => {
                     type="submit"
                     className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-sm transition-colors"
                   >
-                    <span>Gửi bình luận</span>
+                    <span>Post Comment</span>
                     <Send className="w-4 h-4" />
                   </button>
                 </div>
@@ -556,7 +556,7 @@ const ComponentDetail = () => {
               {/* Comments display */}
               <div className="space-y-6 max-h-[400px] overflow-auto pr-2">
                 {comments.length === 0 ? (
-                  <p className="text-text-muted text-sm italic">Chưa có bình luận nào. Hãy trở thành người đầu tiên!</p>
+                  <p className="text-text-muted text-sm italic">No comments yet. Be the first to comment!</p>
                 ) : (
                   comments.map((c) => (
                     <div key={c.id} className="flex gap-4 border-b border-border-primary pb-6 last:border-0 last:pb-0">
@@ -571,7 +571,7 @@ const ComponentDetail = () => {
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-1">
                           <h4 className="font-bold text-sm text-text-primary">{c.author}</h4>
-                          <span className="text-[10px] text-text-muted">{new Date(c.createdAt).toLocaleDateString('vi-VN')}</span>
+                          <span className="text-[10px] text-text-muted">{new Date(c.createdAt).toLocaleDateString('en-US')}</span>
                         </div>
                         <p className="text-xs text-text-secondary leading-relaxed">{c.content}</p>
                       </div>
@@ -586,12 +586,12 @@ const ComponentDetail = () => {
           <div className="flex flex-col gap-6">
             <div className="bg-gradient-to-br from-indigo-500/5 to-purple-500/5 border border-border-primary rounded-3xl p-6 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
-              <h3 className="font-bold text-lg mb-3 text-indigo-500 dark:text-indigo-300">💡 Hướng dẫn tích hợp</h3>
+              <h3 className="font-bold text-lg mb-3 text-indigo-500 dark:text-indigo-300">💡 Integration Guide</h3>
               <ul className="text-xs text-text-secondary space-y-3 leading-relaxed">
-                <li>• Nhấn nút <strong className="text-text-primary">Copy Code</strong> để sao chép mã nguồn HTML, CSS tương ứng vào clipboard.</li>
-                <li>• Bạn cần chèn mã CSS vào file css dự án của mình hoặc đặt trong thẻ <code className="bg-black/5 dark:bg-white/5 px-1 py-0.5 rounded text-indigo-500 dark:text-indigo-300 font-mono">&lt;style&gt;</code>.</li>
-                <li>• Nếu component có chứa Javascript (tab Javascript), hãy copy đoạn mã Javascript đó đặt trước thẻ đóng <code className="bg-black/5 dark:bg-white/5 px-1 py-0.5 rounded text-indigo-500 dark:text-indigo-300 font-mono">&lt;/body&gt;</code>.</li>
-                <li>• Toàn bộ component đều là CSS thuần và HTML tĩnh, dễ dàng chỉnh sửa hoặc chuyển đổi sang React JSX / Tailwind CSS.</li>
+                <li>• Click <strong className="text-text-primary">Copy Code</strong> to copy the source code to clipboard.</li>
+                <li>• Paste the CSS code into your project stylesheet or inside a <code className="bg-black/5 dark:bg-white/5 px-1 py-0.5 rounded text-indigo-500 dark:text-indigo-300 font-mono">&lt;style&gt;</code> block.</li>
+                <li>• If the component includes Javascript, insert it before the closing <code className="bg-black/5 dark:bg-white/5 px-1 py-0.5 rounded text-indigo-500 dark:text-indigo-300 font-mono">&lt;/body&gt;</code> tag.</li>
+                <li>• All components are pure CSS and HTML, making it easy to edit or port to React JSX / Tailwind CSS.</li>
               </ul>
             </div>
           </div>
@@ -607,13 +607,13 @@ const ComponentDetail = () => {
           >
             <div className="flex items-center justify-between mb-8 border-b border-border-primary pb-4">
               <h2 className="text-2xl font-bold bg-gradient-to-r from-text-primary to-text-secondary bg-clip-text text-transparent">
-                Các Component Cùng Danh Mục
+                Related Components
               </h2>
               <Link
                 to={`/components?category=${component.category}`}
                 className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 font-semibold text-sm flex items-center gap-1.5 transition-colors"
               >
-                Xem tất cả <ArrowLeft className="w-4 h-4 rotate-180" />
+                View all <ArrowLeft className="w-4 h-4 rotate-180" />
               </Link>
             </div>
             
@@ -683,12 +683,12 @@ const ComponentDetail = () => {
             <div className="bg-secondary px-6 py-4 flex items-center justify-between border-b border-border-primary">
               <div>
                 <h3 className="font-bold text-text-primary text-base md:text-lg">{component.name}</h3>
-                <p className="text-text-muted text-xs italic">Xem thử nghiệm chế độ toàn màn hình</p>
+                <p className="text-text-muted text-xs italic">Fullscreen testing mode</p>
               </div>
               <button
                 onClick={() => setIsFullscreenPreview(false)}
                 className="p-2 bg-tertiary hover:bg-secondary border border-border-primary rounded-xl text-text-secondary hover:text-text-primary transition-all"
-                title="Đóng chế độ phóng to"
+                title="Close fullscreen preview"
               >
                 <X className="w-6 h-6" />
               </button>

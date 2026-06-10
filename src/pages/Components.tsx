@@ -126,13 +126,13 @@ const Components = () => {
             className="max-w-3xl mx-auto text-center"
           >
             <span className="text-xs md:text-sm font-semibold text-indigo-500 dark:text-indigo-400 tracking-widest uppercase mb-3 block">
-              Thư viện ZenithUI mẫu
+              ZenithUI Library Templates
             </span>
             <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary via-text-primary/90 to-indigo-500 dark:to-indigo-400 bg-clip-text text-transparent">
               ZenithUI Components
             </h2>
             <p className="text-base md:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              Khám phá, sao chép và chỉnh sửa hàng chục component giao diện độc quyền được làm thủ công bằng HTML/CSS/JS thuần.
+              Explore, copy, and customize dozens of handcrafted, production-ready interface components using HTML, CSS, and JS.
             </p>
           </motion.div>
         </div>
@@ -151,7 +151,7 @@ const Components = () => {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4" />
                 <input
                   type="text"
-                  placeholder="Tìm kiếm theo tên, tag, hoặc chức năng..."
+                  placeholder="Search by name, tag, or utility..."
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value)
@@ -173,7 +173,7 @@ const Components = () => {
                     }}
                     className="bg-transparent py-3 pr-2 text-xs md:text-sm text-text-secondary outline-none cursor-pointer font-medium"
                   >
-                    <option value="all" className="bg-secondary text-text-primary">Tất cả Framework</option>
+                    <option value="all" className="bg-secondary text-text-primary">All Frameworks</option>
                     <option value="html" className="bg-secondary text-text-primary">HTML / CSS / JS</option>
                     <option value="react" className="bg-secondary text-text-primary">React / JSX</option>
                     <option value="vue" className="bg-secondary text-text-primary">Vue / SFC</option>
@@ -191,10 +191,10 @@ const Components = () => {
                     }}
                     className="bg-transparent py-3 pr-2 text-xs md:text-sm text-text-secondary outline-none cursor-pointer font-medium"
                   >
-                    <option value="popular" className="bg-secondary text-text-primary">Phổ biến</option>
-                    <option value="newest" className="bg-secondary text-text-primary">Mới nhất</option>
-                    <option value="mostLiked" className="bg-secondary text-text-primary">Yêu thích</option>
-                    <option value="name" className="bg-secondary text-text-primary">Tên A-Z</option>
+                    <option value="popular" className="bg-secondary text-text-primary">Popular</option>
+                    <option value="newest" className="bg-secondary text-text-primary">Newest</option>
+                    <option value="mostLiked" className="bg-secondary text-text-primary">Most Liked</option>
+                    <option value="name" className="bg-secondary text-text-primary">Name A-Z</option>
                   </select>
                 </div>
               </div>
@@ -217,10 +217,10 @@ const Components = () => {
             {/* Info Summary Row */}
             <div className="flex items-center justify-between pb-4 border-b border-border-primary">
               <span className="text-xs md:text-sm text-text-muted font-medium">
-                Hiển thị <span className="text-text-primary font-bold">{components.length}</span> trong số <span className="text-text-primary font-bold">{pagination.total}</span> components
+                Showing <span className="text-text-primary font-bold">{components.length}</span> of <span className="text-text-primary font-bold">{pagination.total}</span> components
               </span>
               <span className="text-xs text-text-muted font-mono">
-                Trang {pagination.page} / {pagination.totalPages || 1}
+                Page {pagination.page} / {pagination.totalPages || 1}
               </span>
             </div>
           </div>
@@ -229,14 +229,14 @@ const Components = () => {
           {loading ? (
             <div className="text-center py-32">
               <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-500 mx-auto mb-4"></div>
-              <p className="text-text-muted text-sm">Đang tải components...</p>
+              <p className="text-text-muted text-sm">Loading components...</p>
             </div>
           ) : components.length === 0 ? (
             <div className="text-center py-24 bg-tertiary border border-border-primary rounded-3xl max-w-4xl mx-auto">
               <Code2 className="w-16 h-16 text-text-muted/60 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Không tìm thấy component nào</h3>
+              <h3 className="text-xl font-bold mb-2">No components found</h3>
               <p className="text-text-muted text-sm max-w-sm mx-auto">
-                Hãy thử thay đổi từ khóa tìm kiếm hoặc chọn một danh mục khác.
+                Try changing your search keywords or choosing another category.
               </p>
             </div>
           ) : (
@@ -277,13 +277,13 @@ const Components = () => {
                       {component.featured && (
                         <div className="absolute top-3 left-3 bg-indigo-500/20 backdrop-blur-md text-indigo-600 dark:text-indigo-300 px-3 py-1 rounded-full text-xs font-semibold border border-indigo-500/30 z-10 flex items-center gap-1">
                           <Sparkles className="w-3.5 h-3.5" />
-                          <span>Nổi bật</span>
+                          <span>Featured</span>
                         </div>
                       )}
 
                       {/* Hover Overlay */}
                       <div className="preview-overlay flex items-center justify-center gap-2 text-white font-semibold text-xs tracking-wider z-20">
-                        <span>Chi tiết & Code</span>
+                        <span>Details & Code</span>
                         <Code2 className="w-4 h-4" />
                       </div>
                     </div>
@@ -344,7 +344,7 @@ const Components = () => {
                 disabled={pagination.page === 1}
                 className="px-4 py-2 bg-tertiary border border-border-primary rounded-xl disabled:opacity-30 disabled:cursor-not-allowed hover:bg-secondary transition-colors text-sm text-text-secondary font-semibold"
               >
-                Trước
+                Prev
               </button>
               {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => (
                 <button
@@ -364,7 +364,7 @@ const Components = () => {
                 disabled={pagination.page === pagination.totalPages}
                 className="px-4 py-2 bg-tertiary border border-border-primary rounded-xl disabled:opacity-30 disabled:cursor-not-allowed hover:bg-secondary transition-colors text-sm text-text-secondary font-semibold"
               >
-                Sau
+                Next
               </button>
             </div>
           )}

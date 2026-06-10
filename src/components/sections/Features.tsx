@@ -5,8 +5,8 @@ import { Sparkles, Zap, Shield, Code, Smartphone } from 'lucide-react'
 const features = [
   {
     icon: Sparkles,
-    title: 'Trải Nghiệm Tương Tác Cực Đỉnh',
-    description: 'Các hiệu ứng chuyển động, hover, active và các animation 3D đỉnh cao được tối ưu hóa bằng CSS thuần và Framer Motion giúp giao diện trở nên sống động, tăng tỷ lệ chuyển đổi.',
+    title: 'Stunning Interactive Experience',
+    description: 'Premium hover effects, active states, and smooth animations optimized with raw CSS and Framer Motion bring your interfaces to life and boost conversion rates.',
     className: 'md:col-span-2 md:row-span-2 min-h-[320px] md:min-h-[400px]',
     visual: (
       <div className="absolute right-0 bottom-0 top-1/2 md:top-0 w-full md:w-1/2 overflow-hidden opacity-20 md:opacity-40 pointer-events-none">
@@ -18,26 +18,26 @@ const features = [
   },
   {
     icon: Zap,
-    title: 'Copy-Paste Ăn Ngay',
-    description: 'Bỏ qua các bước cài đặt thư viện rườm rà. Chỉ cần chọn, click sao chép và dán trực tiếp mã nguồn vào dự án.',
+    title: 'Instant Copy & Paste',
+    description: 'Skip complex installation setups. Just browse, click to copy, and paste the source code directly into your project.',
     className: 'md:col-span-1',
   },
   {
     icon: Shield,
-    title: 'Độ Tin Cậy Cao',
-    description: 'Mã nguồn được tối ưu sạch sẽ, không có mã độc, tương thích với mọi framework hiện đại như React, Next.js, Vue.',
+    title: 'Highly Reliable',
+    description: 'Clean, optimized codebase with zero bloat, compatible with all modern frameworks including React, Next.js, and Vue.',
     className: 'md:col-span-1',
   },
   {
     icon: Smartphone,
-    title: 'Tương Thích Di Động',
-    description: 'Thiết kế chuẩn Mobile-First giúp mọi UI components đều hiển thị và hoạt động mượt mà trên màn hình nhỏ.',
+    title: 'Mobile-First Design',
+    description: 'Responsive, mobile-first designs ensure all UI components render and function beautifully on any screen size.',
     className: 'md:col-span-1',
   },
   {
     icon: Code,
-    title: 'Tùy Biến Dễ Dàng',
-    description: 'Cấu trúc code trực quan, sử dụng các biến CSS custom properties hoặc class Tailwind giúp bạn dễ dàng thay đổi màu sắc, khoảng cách và kích thước để phù hợp với ngôn ngữ thiết kế riêng.',
+    title: 'Fully Customizable',
+    description: 'Clean structure using CSS custom properties or Tailwind classes allows you to easily tweak colors, spacing, and sizing to match your design system.',
     className: 'md:col-span-2',
     visual: (
       <div className="absolute right-6 bottom-4 text-xs font-mono text-indigo-500/30 dark:text-indigo-400/30 hidden md:block select-none pointer-events-none">
@@ -73,13 +73,13 @@ export const Features = () => {
           className="text-center mb-20"
         >
           <span className="text-xs md:text-sm font-semibold text-indigo-500 dark:text-indigo-400 tracking-widest uppercase mb-3 block">
-            Tính năng nổi bật
+            Key Features
           </span>
           <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary via-text-primary to-indigo-500 dark:to-indigo-400 bg-clip-text text-transparent leading-tight">
-            Xây Dựng Giao Diện Đẳng Cấp
+            Build World-Class Interfaces
           </h2>
           <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Nâng tầm trang web của bạn bằng các mảnh ghép được thiết kế tối ưu, chuyên nghiệp và bắt mắt nhất.
+            Elevate your website with beautifully crafted, production-ready, and highly performant UI components.
           </p>
         </motion.div>
 

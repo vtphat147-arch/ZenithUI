@@ -34,9 +34,9 @@ export const CTA = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary via-text-secondary to-indigo-500 dark:from-indigo-200 dark:via-purple-300 dark:to-pink-200 bg-clip-text text-transparent leading-tight"
+              className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-800 dark:from-indigo-200 dark:via-purple-300 dark:to-pink-200 bg-clip-text text-transparent leading-tight"
             >
-              Sẵn Sàng Nâng Tầm Giao Diện?
+              Ready to Elevate Your UI?
             </motion.h2>
             
             <motion.p
@@ -45,7 +45,7 @@ export const CTA = () => {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-base md:text-xl text-text-secondary mb-10 max-w-xl mx-auto leading-relaxed"
             >
-              Bắt đầu tạo ra những trang web tuyệt vời và thu hút người dùng của bạn ngay hôm nay với thư viện UI hoàn toàn miễn phí.
+              Start building stunning websites and engaging your users today with our completely free UI library.
             </motion.p>
 
             <motion.div
@@ -55,16 +55,16 @@ export const CTA = () => {
               className="flex gap-4 justify-center flex-wrap relative z-10"
             >
               <Link to="/components">
-                <Button variant="glow" className="px-8 py-4 font-bold text-base">Xem tất cả Components</Button>
+                <Button variant="glow" className="px-8 py-4 font-bold text-base">Explore All Components</Button>
               </Link>
               <Button 
                 variant="secondary"
-                className="px-8 py-4 font-medium text-base bg-tertiary border-border-primary hover:bg-secondary text-text-primary backdrop-blur-sm"
+                className="px-8 py-4 font-medium text-base"
                 onClick={() => {
-                  window.location.href = 'mailto:support@zenithui.com?subject=Liên%20hệ%20từ%20ZenithUI'
+                  window.location.href = 'mailto:support@zenithui.com?subject=Contact%20from%20ZenithUI'
                 }}
               >
-                Liên hệ chúng tôi
+                Contact Us
               </Button>
             </motion.div>
           </div>

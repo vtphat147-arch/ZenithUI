@@ -46,7 +46,7 @@ const Header = () => {
   }
 
   const navItems = [
-    { path: '/', label: 'Trang chủ' },
+    { path: '/', label: 'Home' },
     { path: '/components', label: 'Components' },
   ]
 
@@ -136,7 +136,7 @@ const Header = () => {
               onClick={toggleTheme}
               className="p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-text-primary/[0.06] transition-all duration-300"
               aria-label="Toggle theme"
-              title={theme === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {theme === 'dark' ? (
                 <Sun className="w-5 h-5 text-amber-400" />
@@ -161,7 +161,7 @@ const Header = () => {
             >
               <span className="relative z-10 flex items-center gap-2">
                 <Sparkles className="w-4 h-4" />
-                Khám phá
+                Explore
               </span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-pink"
@@ -243,7 +243,7 @@ const Header = () => {
                 >
                   <span className="flex items-center justify-center gap-2">
                     <Sparkles className="w-4 h-4" />
-                    Khám phá Components
+                    Explore Components
                   </span>
                 </Link>
               </motion.div>
