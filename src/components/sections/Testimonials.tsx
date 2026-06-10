@@ -1,24 +1,39 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Card } from '../ui/Card'
-import { Quote } from 'lucide-react'
+import { Quote, Star } from 'lucide-react'
 
 const testimonials = [
   {
-    name: 'Nguyễn Văn A',
-    role: 'Frontend Developer',
-    content: 'Thư viện components này giúp tôi tiết kiệm rất nhiều thời gian. Các animations cực kỳ mượt mà!'
+    name: 'Nguyễn Hoàng Lâm',
+    role: 'Frontend Architect @ VinGroup',
+    content: 'Thư viện components này giúp team của tôi rút ngắn 50% thời gian phát triển UI. Các hiệu ứng animations và hover rất mượt, code cực kỳ trực quan và sạch sẽ.',
+    avatarColor: 'bg-indigo-500',
+    initial: 'L',
+    rating: 5
   },
   {
-    name: 'Trần Thị B',
-    role: 'UI/UX Designer',
-    content: 'Design system hoàn hảo với nhiều mẫu đẹp. Tôi thích nhất phần 3D effects!'
+    name: 'Phạm Minh Trang',
+    role: 'Senior UI/UX Designer @ VNG',
+    content: 'Phong cách thiết kế cực kỳ hiện đại và trendy. Tỷ lệ tương tác trên landing page của chúng tôi tăng vọt sau khi tích hợp một số card và button từ đây.',
+    avatarColor: 'bg-pink-500',
+    initial: 'T',
+    rating: 5
   },
   {
-    name: 'Lê Văn C',
-    role: 'Full Stack Developer',
-    content: 'Code clean, dễ customize và performance tốt. Highly recommended!'
+    name: 'Đặng Tuấn Anh',
+    role: 'Full Stack Creator',
+    content: 'CSS thuần tối giản dễ dàng copy-paste và tùy chỉnh. Rất phù hợp cho các nhà phát triển độc lập muốn build sản phẩm nhanh mà vẫn cực kỳ nịnh mắt.',
+    avatarColor: 'bg-cyan-500',
+    initial: 'A',
+    rating: 5
   }
+]
+
+const stats = [
+  { value: '15,000+', label: 'Lượt Tải Code' },
+  { value: '45+', label: 'Components Mẫu' },
+  { value: '99.9%', label: 'Độ Hài Lòng' },
+  { value: '4.9/5', label: 'Đánh Giá' }
 ]
 
 export const Testimonials = () => {
@@ -26,50 +41,85 @@ export const Testimonials = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
-      {/* Wave Background Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '60px 60px'
-        }} />
-      </div>
+    <section ref={ref} className="relative min-h-screen w-full overflow-hidden bg-[#050510] py-24 border-t border-white/5">
+      {/* Background Dot pattern */}
+      <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none"></div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20">
+      <div className="relative z-10 container mx-auto px-6 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 px-4"
+          className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent leading-tight pb-4" style={{ paddingBottom: '0.5rem', lineHeight: '1.15' }}>
-            Khách hàng nói gì
+          <span className="text-xs md:text-sm font-semibold text-indigo-400 tracking-widest uppercase mb-3 block">
+            Ý kiến cộng đồng
+          </span>
+          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent leading-tight">
+            Được Tin Dùng Bởi Lập Trình Viên
           </h2>
-          <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto leading-relaxed">
-            Những feedback từ developers và designers đã sử dụng
+          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Các chuyên gia frontend và thiết kế nói gì về ZenithUI.
           </p>
         </motion.div>
 
+        {/* Stats Row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-20">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="stat-card"
+            >
+              <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
+                {stat.value}
+              </div>
+              <div className="text-xs md:text-sm text-slate-400 font-medium tracking-wide">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Testimonials Cards Grid */}
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 30, rotateY: -15 }}
-              animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              whileHover={{ y: -10, scale: 1.02 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
             >
-              <Card hover className="h-full">
-                <Quote className="w-8 h-8 text-indigo-400 mb-4" />
-                <p className="text-white/90 mb-6 text-lg leading-relaxed">
-                  "{testimonial.content}"
-                </p>
-                <div className="border-t border-white/10 pt-4">
-                  <p className="font-bold text-white">{testimonial.name}</p>
-                  <p className="text-white/60 text-sm">{testimonial.role}</p>
+              <div className="bento-card h-full p-8 flex flex-col justify-between hover:border-indigo-500/20 transition-all duration-400 relative overflow-hidden bg-white/[0.01]">
+                <div>
+                  <Quote className="w-10 h-10 text-indigo-500/20 mb-6" />
+                  
+                  {/* Rating Stars */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+
+                  <p className="text-slate-300 mb-8 text-base leading-relaxed italic">
+                    "{testimonial.content}"
+                  </p>
                 </div>
-              </Card>
+
+                <div className="flex items-center gap-4 border-t border-white/5 pt-6 mt-auto">
+                  {/* Avatar Circle */}
+                  <div className={`w-12 h-12 rounded-full ${testimonial.avatarColor} flex items-center justify-center font-bold text-white text-base shadow-lg`}>
+                    {testimonial.initial}
+                  </div>
+                  <div>
+                    <p className="font-bold text-white text-sm">{testimonial.name}</p>
+                    <p className="text-slate-500 text-xs mt-0.5">{testimonial.role}</p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

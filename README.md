@@ -1,4 +1,4 @@
-# E-Education Frontend
+# ZenithUI
 
 Nền tảng học trực tuyến và chia sẻ UI/UX components miễn phí với giao diện hiện đại, tích hợp thanh toán VIP và các tính năng tương tác 3D.
 

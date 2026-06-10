@@ -1,94 +1,106 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { ArrowLeft, Eye, Heart, Copy, Check, Sparkles, Code2, Maximize2 } from 'lucide-react'
-import Header from '../cpnents/Header'
-import { designService, DesignComponent } from '../services/api'
-import { useAuth } from '../contexts/AuthContext'
-import { userService } from '../services/userService'
+import { useParams, Link } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowLeft, Eye, Heart, Copy, Check, Sparkles, Code2, Maximize2, Download, Share2, Send, MessageSquare, X } from 'lucide-react'
+import Header from '../components/layout/Header'
+import { componentsData, UIComponent } from '../data/components'
 import ComponentPreview from '../components/ComponentPreview'
-import Comments from '../components/Comments'
-import ShareDropdown from '../components/ShareDropdown'
-import ExportDropdown from '../components/ExportDropdown'
-import FrameworkCodeGenerator from '../components/FrameworkCodeGenerator'
-import FullscreenPreview from '../components/FullscreenPreview'
-import VipRequiredModal from '../components/VipRequiredModal'
+
+interface Comment {
+  id: string
+  author: string
+  content: string
+  createdAt: string
+  avatar: string
+}
 
 const ComponentDetail = () => {
   const { id } = useParams<{ id: string }>()
-  const navigate = useNavigate()
-  const [component, setComponent] = useState<DesignComponent | null>(null)
-  const [relatedComponents, setRelatedComponents] = useState<DesignComponent[]>([])
+  const [component, setComponent] = useState<UIComponent | null>(null)
+  const [relatedComponents, setRelatedComponents] = useState<UIComponent[]>([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'html' | 'css' | 'js'>('html')
   const [copied, setCopied] = useState<string | null>(null)
-  const [isFavorited, setIsFavorited] = useState(false)
   const [isFullscreenPreview, setIsFullscreenPreview] = useState(false)
   const [flyingHearts, setFlyingHearts] = useState<Array<{ id: number; x: number; y: number }>>([])
-  const [showVipModal, setShowVipModal] = useState(false)
-  const { isAuthenticated } = useAuth()
+  
+  // Local likes state
+  const [likesCount, setLikesCount] = useState(0)
+  const [hasLiked, setHasLiked] = useState(false)
+  const [viewsCount, setViewsCount] = useState(0)
+
+  // Local comments state
+  const [comments, setComments] = useState<Comment[]>([])
+  const [newCommentName, setNewCommentName] = useState('')
+  const [newCommentText, setNewCommentText] = useState('')
+
+  // Share and Export UI state
+  const [showShareTooltip, setShowShareTooltip] = useState(false)
+  const [showDownloadMenu, setShowDownloadMenu] = useState(false)
 
   useEffect(() => {
-    const fetchComponent = async () => {
+    const fetchComponent = () => {
       if (!id) return
-      try {
-        setLoading(true)
-        let data: DesignComponent
-        try {
-          data = await designService.getComponentById(parseInt(id))
-          setComponent(data)
-        } catch (err: any) {
-          // Check if it's a VIP required error
-          if (err.response?.status === 403 && err.response?.data?.requiresVip) {
-            setShowVipModal(true)
-            setLoading(false)
-            return
-          }
-          throw err
-        }
+      setLoading(true)
+      
+      const found = componentsData.find(c => c.id === id)
+      if (found) {
+        setComponent(found)
+        setLikesCount(found.likes)
         
-        // Check if favorited (if authenticated)
-        if (isAuthenticated && data.id) {
-          try {
-            const favorited = await userService.checkFavorite(data.id).catch(() => false)
-            setIsFavorited(favorited)
-          } catch (err) {
-            // Silent fail
-          }
-        }
+        // Simulating views increment
+        setViewsCount(found.views + 1)
         
-        // Fetch related components cùng category
-        if (data.category) {
-          const response = await designService.getAllComponents(
-            data.category, 
-            undefined, 
-            undefined, 
-            undefined, 
-            undefined, 
-            'popular',
-            1, 
-            10
-          )
-          // Loại bỏ component hiện tại và lấy tối đa 4 components
-          const filtered = response.data
-            .filter(c => c.id !== data.id)
-            .slice(0, 4)
-          setRelatedComponents(filtered)
+        // Check if liked before
+        const likedBefore = localStorage.getItem(`liked-${id}`)
+        if (likedBefore === 'true') {
+          setHasLiked(true)
         }
-      } catch (err) {
-        console.error('Error fetching component:', err)
-      } finally {
-        setLoading(false)
+
+        // Fetch related components
+        const related = componentsData
+          .filter(c => c.category === found.category && c.id !== found.id)
+          .slice(0, 4)
+        setRelatedComponents(related)
+      } else {
+        setComponent(null)
       }
+      setLoading(false)
     }
 
     fetchComponent()
-  }, [id, isAuthenticated])
+  }, [id])
 
-  const handleLike = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (!id || !component) {
-      return
+  // Load and manage local comments
+  useEffect(() => {
+    if (!id) return
+    const stored = localStorage.getItem(`comments-${id}`)
+    if (stored) {
+      setComments(JSON.parse(stored))
+    } else {
+      const initial: Comment[] = [
+        {
+          id: '1',
+          author: 'Lâm Nguyễn',
+          content: 'Code cực kỳ tối ưu và viết rất dễ hiểu. Layout CSS mượt mà lắm!',
+          createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
+          avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80'
+        },
+        {
+          id: '2',
+          author: 'Trần Minh Hoàng',
+          content: 'Hiệu ứng đẹp thực sự. Mong tác giả làm thêm bản JSX/Tailwind nữa nhé.',
+          createdAt: new Date(Date.now() - 3600000 * 24).toISOString(),
+          avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80'
+        }
+      ]
+      setComments(initial)
+      localStorage.setItem(`comments-${id}`, JSON.stringify(initial))
     }
+  }, [id])
+
+  const handleLike = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (hasLiked || !id) return
     
     // Get button position for heart animation
     const rect = event.currentTarget.getBoundingClientRect()
@@ -102,56 +114,96 @@ const ComponentDetail = () => {
     // Remove heart after animation
     setTimeout(() => {
       setFlyingHearts(prev => prev.filter(h => h.id !== heartId))
-    }, 2000)
+    }, 1500)
     
-    try {
-      // Always increment likes locally for immediate feedback
-      const newLikes = (component.likes || 0) + 1
-      setComponent({ ...component, likes: newLikes })
-      
-      // Call API in background (don't wait for response) - only if authenticated
-      if (isAuthenticated) {
-        designService.likeComponent(parseInt(id)).then((result) => {
-          // Update with server response only if it's higher (prevent race conditions)
-          setComponent(prev => {
-            if (!prev) return null
-            return { ...prev, likes: Math.max(prev.likes, result.likes) }
-          })
-        }).catch((err: any) => {
-          // Silent fail - don't revert, just log error
-          console.error('Error liking component:', err)
-        })
-      }
-      // If not authenticated, just show the increment locally (no API call, no redirect)
-    } catch (err: any) {
-      console.error('Error in handleLike:', err)
-      // Don't revert - keep the increment
-    }
+    setLikesCount(prev => prev + 1)
+    setHasLiked(true)
+    localStorage.setItem(`liked-${id}`, 'true')
   }
 
-  const handleFavorite = async () => {
-    if (!id || !isAuthenticated) {
-      navigate('/login')
-      return
+  const handleAddComment = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newCommentText.trim() || !newCommentName.trim() || !id) return
+    
+    const comment: Comment = {
+      id: Date.now().toString(),
+      author: newCommentName.trim(),
+      content: newCommentText.trim(),
+      createdAt: new Date().toISOString(),
+      avatar: `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 999999)}?auto=format&fit=crop&w=80&h=80&q=80`
     }
-
-    try {
-      if (isFavorited) {
-        await userService.removeFavorite(parseInt(id))
-        setIsFavorited(false)
-      } else {
-        await userService.addFavorite(parseInt(id))
-        setIsFavorited(true)
-      }
-    } catch (err) {
-      console.error('Error toggling favorite:', err)
-    }
+    
+    const updated = [comment, ...comments]
+    setComments(updated)
+    localStorage.setItem(`comments-${id}`, JSON.stringify(updated))
+    setNewCommentText('')
   }
 
   const handleCopy = async (code: string, type: string) => {
     await navigator.clipboard.writeText(code)
     setCopied(type)
     setTimeout(() => setCopied(null), 2000)
+  }
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href)
+    setShowShareTooltip(true)
+    setTimeout(() => setShowShareTooltip(false), 2000)
+  }
+
+  const downloadCode = (type: 'html' | 'css' | 'js' | 'all') => {
+    if (!component) return
+    let content = ''
+    let filename = ''
+    let mimeType = 'text/plain'
+    
+    if (type === 'html') {
+      content = component.htmlCode
+      filename = `${component.id}.html`
+      mimeType = 'text/html'
+    } else if (type === 'css') {
+      content = component.cssCode
+      filename = `${component.id}.css`
+      mimeType = 'text/css'
+    } else if (type === 'js') {
+      content = component.jsCode || ''
+      filename = `${component.id}.js`
+      mimeType = 'text/javascript'
+    } else if (type === 'all') {
+      content = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${component.name} - Demo Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    ${component.cssCode}
+  </style>
+</head>
+<body>
+  ${component.htmlCode}
+  ${component.jsCode ? `<script>${component.jsCode}</script>` : ''}
+</body>
+</html>`
+      filename = `${component.id}-full-demo.html`
+      mimeType = 'text/html'
+    }
+    
+    const blob = new Blob([content], { type: mimeType })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = filename
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+    setShowDownloadMenu(false)
   }
 
   const getCodeByTab = () => {
@@ -162,7 +214,7 @@ const ComponentDetail = () => {
       case 'css':
         return component.cssCode
       case 'js':
-        return component.jsCode || '// No JavaScript code'
+        return component.jsCode || '// Không có mã nguồn JavaScript cho component này.'
       default:
         return ''
     }
@@ -170,17 +222,10 @@ const ComponentDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+      <div className="min-h-screen bg-[#050510] text-white flex flex-col">
         <Header />
-        <div className="container mx-auto px-4 py-20">
-          <div className="text-center">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full mx-auto mb-4"
-            />
-            <p className="text-gray-600">Đang tải...</p>
-          </div>
+        <div className="flex-grow flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
         </div>
       </div>
     )
@@ -188,317 +233,385 @@ const ComponentDetail = () => {
 
   if (!component) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+      <div className="min-h-screen bg-[#050510] text-white flex flex-col">
         <Header />
-        <div className="container mx-auto px-4 py-20">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">Component không tồn tại</h2>
-            <Link to="/components" className="text-primary-600 hover:underline">
-              Quay lại danh sách
-            </Link>
-          </div>
+        <div className="flex-grow flex flex-col items-center justify-center px-4">
+          <h2 className="text-2xl font-bold mb-4">Component không tồn tại</h2>
+          <Link to="/components" className="text-indigo-400 hover:text-indigo-300 flex items-center gap-2">
+            <ArrowLeft className="w-5 h-5" /> Quay lại thư viện
+          </Link>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <div className="min-h-screen bg-[#050510] text-white">
       <Header />
       
-      <div className="container mx-auto px-4 pt-28 pb-8">
-        {/* Back Button với glass effect */}
+      <div className="container mx-auto px-4 pt-28 pb-16 max-w-7xl">
+        {/* Back Link */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <button
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-full text-gray-700 hover:bg-white hover:shadow-lg transition-all duration-300 mb-6"
+          <Link
+            to="/components"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] rounded-full text-white/80 hover:text-white transition-all duration-300 mb-8"
           >
-            <ArrowLeft className="w-5 h-5" />
-            Quay lại
-          </button>
+            <ArrowLeft className="w-4 h-4" />
+            Thư viện component
+          </Link>
         </motion.div>
 
-        {/* Component Title & Info - Full width trên cùng */}
+        {/* Component Header Card */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 p-6"
+          className="mb-8 bg-white/[0.02] border border-white/[0.06] rounded-3xl p-6 md:p-8"
         >
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <div className="flex-1">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-5xl font-black mb-4 bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent">
                 {component.name}
               </h1>
-              <p className="text-gray-700 text-lg leading-relaxed mb-4">{component.description}</p>
+              <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6">
+                {component.description}
+              </p>
+              
               <div className="flex flex-wrap items-center gap-3">
-                <span className="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full text-sm font-semibold shadow-lg">
+                <span className="px-4 py-1.5 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-full text-xs font-semibold uppercase tracking-wider">
                   {component.category}
                 </span>
-                <span className="px-4 py-2 bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-700 rounded-full text-sm font-medium">
-                  {component.type}
+                <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-semibold uppercase tracking-wider">
+                  {component.framework}
                 </span>
-                {component.framework && (
-                  <span className="px-4 py-2 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full text-sm font-semibold shadow-lg">
-                    {component.framework}
+                {component.tags && component.tags.map((tag, idx) => (
+                  <span key={idx} className="px-3 py-1 bg-white/[0.03] text-white/50 border border-white/[0.05] rounded-full text-xs">
+                    #{tag.trim()}
                   </span>
-                )}
-                {component.tags && (
-                  <>
-                    {component.tags.split(',').slice(0, 3).map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs font-medium"
-                      >
-                        {tag.trim()}
-                      </span>
-                    ))}
-                  </>
-                )}
+                ))}
               </div>
             </div>
-            {/* Stats */}
+
+            {/* Stats Dashboard */}
             <div className="flex items-center gap-4">
               <motion.button
                 onClick={handleLike}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-colors bg-red-50 hover:bg-red-100 text-red-600"
+                disabled={hasLiked}
+                whileHover={!hasLiked ? { scale: 1.05 } : {}}
+                whileTap={!hasLiked ? { scale: 0.95 } : {}}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl font-bold transition-all border ${
+                  hasLiked 
+                    ? 'bg-pink-500/10 text-pink-500 border-pink-500/30' 
+                    : 'bg-white/[0.03] hover:bg-white/[0.06] border-white/[0.08] text-white/80'
+                }`}
               >
-                <Heart className="w-5 h-5 fill-red-600" />
-                <span>{component.likes}</span>
+                <Heart className={`w-5 h-5 ${hasLiked ? 'fill-pink-500 text-pink-500' : ''}`} />
+                <span>{likesCount}</span>
               </motion.button>
-              <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-xl text-blue-600 font-semibold">
-                <Eye className="w-5 h-5" />
-                <span>{component.views}</span>
+              
+              <div className="flex items-center gap-2 px-5 py-2.5 bg-white/[0.03] border border-white/[0.08] text-white/70 rounded-2xl font-bold">
+                <Eye className="w-5 h-5 text-indigo-400" />
+                <span>{viewsCount}</span>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Live Preview (Left) & Code (Right) - Grid Layout */}
+        {/* Live Preview (Left) & Code Editor (Right) */}
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          {/* Left: Live Preview */}
+          {/* Left Column: Live Preview */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -25 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative group"
+            transition={{ duration: 0.5 }}
+            className="flex flex-col"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden h-full flex flex-col">
-              <div className="p-4 bg-gradient-to-r from-gray-50 to-white border-b border-gray-200/50 flex items-center justify-between flex-shrink-0">
+            <div className="bg-white/[0.02] border border-white/[0.06] rounded-3xl overflow-hidden flex flex-col h-full">
+              {/* Toolbar */}
+              <div className="p-4 bg-white/[0.02] border-b border-white/[0.06] flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-                  <h3 className="ml-3 text-lg font-bold text-gray-900">Live Preview</h3>
+                  <span className="w-3 h-3 rounded-full bg-red-500/60" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                  <span className="w-3 h-3 rounded-full bg-green-500/60" />
+                  <span className="ml-3 text-sm font-semibold text-white/70">Live Preview</span>
                 </div>
-                <motion.button
+                
+                <button
                   onClick={() => setIsFullscreenPreview(true)}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-600 hover:text-gray-900"
-                  title="Phóng to preview"
-                  aria-label="Fullscreen preview"
+                  className="p-2 hover:bg-white/[0.05] rounded-lg text-white/75 hover:text-white transition-colors"
+                  title="Xem toàn màn hình"
                 >
                   <Maximize2 className="w-5 h-5" />
-                </motion.button>
+                </button>
               </div>
-              <div className="p-6 bg-gradient-to-br from-gray-100 via-gray-50 to-white flex-1 flex flex-col">
+
+              {/* Rendering Area */}
+              <div className="p-6 bg-[#0c0c1e] flex-grow flex items-center justify-center min-h-[450px] relative">
                 <iframe
                   srcDoc={`
                     <!DOCTYPE html>
                     <html>
                       <head>
-                        <style>${component.cssCode}</style>
+                        <meta charset="UTF-8">
+                        <style>
+                          body {
+                            margin: 0;
+                            padding: 20px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 90vh;
+                            background: #0d0d1e;
+                          }
+                          ${component.cssCode}
+                        </style>
                       </head>
-                      <body style="margin: 0; padding: 20px;">
+                      <body>
                         ${component.htmlCode}
                         ${component.jsCode ? `<script>${component.jsCode}</script>` : ''}
                       </body>
                     </html>
                   `}
-                  className="w-full flex-1 border-2 border-gray-200 rounded-xl bg-white shadow-inner min-h-[600px]"
-                  title="Component Preview"
+                  className="w-full h-[400px] border-0 rounded-2xl bg-[#0d0d1e]"
+                  title="Component Live Rendering"
                   sandbox="allow-scripts allow-same-origin"
                 />
               </div>
-              {/* Action buttons below preview */}
-              <div className="p-4 bg-gray-50/50 border-t border-gray-200/50 flex items-center justify-center gap-3 flex-wrap flex-shrink-0 relative">
-                {/* Flying Hearts Animation */}
+
+              {/* Action bar below preview */}
+              <div className="p-4 bg-white/[0.01] border-t border-white/[0.06] flex items-center justify-between flex-wrap gap-4 relative">
+                {/* Heart animation containers */}
                 {flyingHearts.map((heart) => (
                   <motion.div
                     key={heart.id}
-                    initial={{ 
-                      x: heart.x - 20, 
-                      y: heart.y - 20, 
-                      scale: 1,
-                      opacity: 1 
-                    }}
+                    initial={{ x: heart.x - 20, y: heart.y - 20, scale: 1, opacity: 1 }}
                     animate={{ 
-                      y: heart.y - 100,
-                      x: heart.x + (Math.random() * 40 - 20),
-                      scale: [1, 1.5, 0],
-                      opacity: [1, 1, 0],
-                      rotate: [0, Math.random() * 360 - 180]
+                      y: heart.y - 120, 
+                      x: heart.x + (Math.random() * 80 - 40), 
+                      scale: [1, 1.6, 0], 
+                      opacity: [1, 1, 0] 
                     }}
-                    transition={{ 
-                      duration: 1.5,
-                      ease: "easeOut"
-                    }}
-                    className="fixed pointer-events-none z-50"
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    className="fixed pointer-events-none z-50 text-pink-500"
                     style={{ left: heart.x, top: heart.y }}
                   >
-                    <Heart className="w-6 h-6 fill-red-500 text-red-500" />
+                    <Heart className="w-8 h-8 fill-current" />
                   </motion.div>
                 ))}
-                {/* Like Button */}
-                <motion.button
-                  onClick={handleLike}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-colors bg-white hover:bg-red-50 text-red-600 border border-gray-200 relative z-10"
-                >
-                  <Heart className="w-5 h-5 fill-red-600" />
-                  <span>{component.likes}</span>
-                </motion.button>
 
-                {/* View Count */}
-                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl text-blue-600 font-semibold border border-gray-200">
-                  <Eye className="w-5 h-5" />
-                  <span>{component.views}</span>
+                <div className="flex gap-2">
+                  {/* Share button */}
+                  <div className="relative">
+                    <button
+                      onClick={handleShare}
+                      className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] rounded-xl text-white/80 hover:text-white transition-colors font-semibold text-sm"
+                    >
+                      <Share2 className="w-4 h-4 text-indigo-400" />
+                      <span>Chia sẻ</span>
+                    </button>
+                    {showShareTooltip && (
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-indigo-600 text-white text-[11px] px-3 py-1 rounded-md font-bold shadow-xl border border-indigo-400 z-30 whitespace-nowrap">
+                        Đã copy link vào clipboard!
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Download dropdown */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowDownloadMenu(!showDownloadMenu)}
+                      className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] rounded-xl text-white/80 hover:text-white transition-colors font-semibold text-sm"
+                    >
+                      <Download className="w-4 h-4 text-emerald-400" />
+                      <span>Tải code</span>
+                    </button>
+                    {showDownloadMenu && (
+                      <div className="absolute bottom-full left-0 mb-2 bg-[#090918] border border-white/[0.08] rounded-xl p-2 shadow-2xl z-30 min-w-[160px]">
+                        <button onClick={() => downloadCode('html')} className="w-full text-left px-3 py-2 text-xs text-white/70 hover:text-white hover:bg-white/[0.05] rounded-lg">HTML Code</button>
+                        <button onClick={() => downloadCode('css')} className="w-full text-left px-3 py-2 text-xs text-white/70 hover:text-white hover:bg-white/[0.05] rounded-lg">CSS Code</button>
+                        {component.jsCode && <button onClick={() => downloadCode('js')} className="w-full text-left px-3 py-2 text-xs text-white/70 hover:text-white hover:bg-white/[0.05] rounded-lg">JavaScript Code</button>}
+                        <div className="h-px bg-white/[0.08] my-1" />
+                        <button onClick={() => downloadCode('all')} className="w-full text-left px-3 py-2 text-xs font-semibold text-emerald-400 hover:bg-white/[0.05] rounded-lg">Trọn gói HTML/CSS</button>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                {/* Favorite Button */}
-                {isAuthenticated && (
-                  <motion.button
-                    onClick={handleFavorite}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-colors border ${
-                      isFavorited
-                        ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-700'
-                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700'
-                    }`}
-                  >
-                    <Heart className={`w-5 h-5 ${isFavorited ? 'fill-indigo-600 dark:fill-indigo-400' : ''}`} />
-                    <span>{isFavorited ? 'Favorited' : 'Favorite'}</span>
-                  </motion.button>
-                )}
-
-                {/* Export Dropdown */}
-                <ExportDropdown component={component} />
-
-                {/* Share Dropdown */}
-                {component && (
-                  <ShareDropdown 
-                    componentId={component.id} 
-                    componentName={component.name}
-                  />
-                )}
+                <div className="text-xs text-white/40 italic">
+                  * Nhấp tải code trọn gói để lấy đầy đủ file HTML, CSS mẫu.
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right: Code Editor */}
+          {/* Right Column: Code Editor */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 25 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden h-full flex flex-col"
+            transition={{ duration: 0.5 }}
+            className="flex flex-col"
           >
-            {/* Code Tabs */}
-            <div className="border-b border-gray-200/50 bg-gray-50/50 backdrop-blur-sm flex">
-              {(['html', 'css', 'js'] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`flex-1 px-6 py-4 font-semibold transition-all duration-300 ${
-                    activeTab === tab
-                      ? 'text-indigo-600 border-b-3 border-indigo-600 bg-white/50'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/30'
-                  }`}
-                >
-                  {tab.toUpperCase()}
-                </button>
-              ))}
-            </div>
-
-            {/* Code Display */}
-            <div className="p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex-1 overflow-auto min-h-[600px]">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-yellow-400" />
-                  <span className="text-gray-400 text-sm">Code Editor</span>
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handleCopy(getCodeByTab(), activeTab)}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors text-sm font-medium border border-gray-700"
-                >
-                  {copied === activeTab ? (
-                    <>
-                      <Check className="w-4 h-4 text-green-400" />
-                      <span className="text-green-400">Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4" />
-                      Copy
-                    </>
-                  )}
-                </motion.button>
+            <div className="bg-[#04040e] border border-white/[0.06] rounded-3xl overflow-hidden flex flex-col h-full">
+              {/* Tab Selector */}
+              <div className="flex bg-white/[0.02] border-b border-white/[0.06]">
+                {(['html', 'css', 'js'] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`flex-1 px-4 py-4 font-bold text-sm tracking-wider uppercase transition-all border-b-2 ${
+                      activeTab === tab
+                        ? 'text-indigo-400 border-indigo-500 bg-white/[0.01]'
+                        : 'text-white/40 border-transparent hover:text-white/80'
+                    }`}
+                  >
+                    {tab === 'js' ? 'Javascript' : tab}
+                  </button>
+                ))}
               </div>
-              <pre className="text-gray-300 text-sm font-mono leading-relaxed">
-                <code>{getCodeByTab()}</code>
-              </pre>
+
+              {/* Code viewer container */}
+              <div className="p-6 flex-grow flex flex-col min-h-[450px]">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-yellow-400" />
+                    <span className="text-xs text-white/40 font-mono">Source Editor</span>
+                  </div>
+                  
+                  <button
+                    onClick={() => handleCopy(getCodeByTab(), activeTab)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-white/80 hover:text-white text-xs font-semibold rounded-lg transition-colors"
+                  >
+                    {copied === activeTab ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-green-400" />
+                        <span className="text-green-400">Đã copy!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copy Code</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="flex-grow bg-[#020208] border border-white/[0.04] rounded-2xl p-4 overflow-auto max-h-[350px]">
+                  <pre className="text-white/80 text-xs font-mono leading-relaxed whitespace-pre-wrap">
+                    <code>{getCodeByTab()}</code>
+                  </pre>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Framework Code Generator Section */}
-        {component && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.22 }}
-            className="mt-8"
-          >
-            <FrameworkCodeGenerator component={component} />
-          </motion.div>
-        )}
+        {/* Local comments & Reviews section */}
+        <div className="grid lg:grid-cols-3 gap-8 mt-12 mb-16">
+          <div className="lg:col-span-2">
+            <div className="bg-white/[0.01] border border-white/[0.06] rounded-3xl p-6 md:p-8">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <MessageSquare className="w-5 h-5 text-indigo-400" />
+                <span>Bình luận ({comments.length})</span>
+              </h3>
 
-        {/* Comments Section */}
-        {component && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-12"
-          >
-            <Comments componentId={component.id} />
-          </motion.div>
-        )}
+              {/* Comments form */}
+              <form onSubmit={handleAddComment} className="mb-8 bg-white/[0.02] border border-white/[0.05] p-5 rounded-2xl">
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-xs text-white/50 font-bold uppercase tracking-wider mb-2">Tên của bạn</label>
+                    <input
+                      type="text"
+                      placeholder="Nhập tên..."
+                      required
+                      value={newCommentName}
+                      onChange={(e) => setNewCommentName(e.target.value)}
+                      className="w-full px-4 py-2 bg-[#09091b] border border-white/[0.08] rounded-xl text-white outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs text-white/50 font-bold uppercase tracking-wider mb-2">Nội dung bình luận</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Chia sẻ ý kiến của bạn về component này..."
+                    required
+                    value={newCommentText}
+                    onChange={(e) => setNewCommentText(e.target.value)}
+                    className="w-full px-4 py-3 bg-[#09091b] border border-white/[0.08] rounded-xl text-white outline-none focus:ring-1 focus:ring-indigo-500 text-sm resize-none"
+                  />
+                </div>
+                <div className="flex justify-end mt-4">
+                  <button
+                    type="submit"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-sm transition-colors"
+                  >
+                    <span>Gửi bình luận</span>
+                    <Send className="w-4 h-4" />
+                  </button>
+                </div>
+              </form>
 
-        {/* Related Components - Chỉ cùng category */}
+              {/* Comments display */}
+              <div className="space-y-6 max-h-[400px] overflow-auto pr-2">
+                {comments.length === 0 ? (
+                  <p className="text-white/40 text-sm italic">Chưa có bình luận nào. Hãy trở thành người đầu tiên!</p>
+                ) : (
+                  comments.map((c) => (
+                    <div key={c.id} className="flex gap-4 border-b border-white/[0.04] pb-6 last:border-0 last:pb-0">
+                      <img
+                        src={c.avatar}
+                        alt={c.author}
+                        className="w-10 h-10 rounded-full object-cover border border-white/[0.1] bg-white/5"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80'
+                        }}
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <h4 className="font-bold text-sm text-white">{c.author}</h4>
+                          <span className="text-[10px] text-white/40">{new Date(c.createdAt).toLocaleDateString('vi-VN')}</span>
+                        </div>
+                        <p className="text-xs text-white/70 leading-relaxed">{c.content}</p>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Quick tips panel */}
+          <div className="flex flex-col gap-6">
+            <div className="bg-gradient-to-br from-indigo-950/20 to-purple-950/20 border border-white/[0.06] rounded-3xl p-6 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
+              <h3 className="font-bold text-lg mb-3 text-indigo-300">💡 Hướng dẫn tích hợp</h3>
+              <ul className="text-xs text-white/60 space-y-3 leading-relaxed">
+                <li>• Nhấn nút <strong className="text-white/80">Copy Code</strong> để sao chép mã nguồn HTML, CSS tương ứng vào clipboard.</li>
+                <li>• Bạn cần chèn mã CSS vào file css dự án của mình hoặc đặt trong thẻ <code className="bg-white/5 px-1 py-0.5 rounded text-indigo-300 font-mono">&lt;style&gt;</code>.</li>
+                <li>• Nếu component có chứa Javascript (tab Javascript), hãy copy đoạn mã Javascript đó đặt trước thẻ đóng <code className="bg-white/5 px-1 py-0.5 rounded text-indigo-300 font-mono">&lt;/body&gt;</code>.</li>
+                <li>• Toàn bộ component đều là CSS thuần và HTML tĩnh, dễ dàng chỉnh sửa hoặc chuyển đổi sang React JSX / Tailwind CSS.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Related Components */}
         {relatedComponents.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.2 }}
             className="mt-12"
           >
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                More {component.category.charAt(0).toUpperCase() + component.category.slice(1)} Components
+            <div className="flex items-center justify-between mb-8 border-b border-white/[0.06] pb-4">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+                Các Component Cùng Danh Mục
               </h2>
               <Link
                 to={`/components?category=${component.category}`}
-                className="text-indigo-600 hover:text-indigo-700 font-semibold flex items-center gap-2 transition-colors"
+                className="text-indigo-400 hover:text-indigo-300 font-semibold text-sm flex items-center gap-1.5 transition-colors"
               >
                 Xem tất cả <ArrowLeft className="w-4 h-4 rotate-180" />
               </Link>
@@ -510,79 +623,112 @@ const ComponentDetail = () => {
                   key={related.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className="group"
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-white/[0.02] border border-white/[0.05] rounded-2xl overflow-hidden hover:border-white/[0.1] hover:shadow-xl transition-all duration-300 flex flex-col"
                 >
                   <Link
                     to={`/components/${related.id}`}
-                    className="block bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col"
+                    className="block relative aspect-video bg-[#0d0d1e] overflow-hidden"
                   >
-                    <div className="relative w-full aspect-video overflow-hidden bg-white">
-                      {related.htmlCode && related.cssCode ? (
-                        <>
-                          <ComponentPreview
-                            htmlCode={related.htmlCode}
-                            cssCode={related.cssCode}
-                            jsCode={related.jsCode || undefined}
-                            name={related.name}
-                            height={160}
-                            lazy={true}
-                          />
-                          <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-semibold z-10">
-                            {related.category}
-                          </div>
-                        </>
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
-                          <Code2 className="w-12 h-12 text-gray-400" />
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-5 flex flex-col flex-1">
-                      <h3 className="font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-indigo-600 transition-colors">
+                    {related.htmlCode && related.cssCode ? (
+                      <ComponentPreview
+                        htmlCode={related.htmlCode}
+                        cssCode={related.cssCode}
+                        jsCode={related.jsCode || undefined}
+                        name={related.name}
+                        height={160}
+                        lazy={true}
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Code2 className="w-12 h-12 text-white/20" />
+                      </div>
+                    )}
+                  </Link>
+                  <div className="p-4 flex flex-col flex-1">
+                    <Link to={`/components/${related.id}`}>
+                      <h4 className="font-bold text-sm text-white hover:text-indigo-400 transition-colors line-clamp-1 mb-1">
                         {related.name}
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2 flex-1">{related.description}</p>
-                      <div className="flex items-center gap-4 text-xs text-gray-500 mt-auto pt-3 border-t border-gray-200">
-                        <div className="flex items-center gap-1">
-                          <Eye className="w-4 h-4" />
-                          <span>{related.views}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Heart className="w-4 h-4" />
-                          <span>{related.likes}</span>
-                        </div>
+                      </h4>
+                    </Link>
+                    <p className="text-[11px] text-white/50 line-clamp-2 mb-3 flex-1">{related.description}</p>
+                    <div className="flex items-center gap-3 text-[10px] text-white/40 pt-2.5 border-t border-white/[0.05]">
+                      <div className="flex items-center gap-1">
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>{related.views}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Heart className="w-3.5 h-3.5 text-pink-500/80 fill-pink-500/10" />
+                        <span>{related.likes}</span>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
         )}
-
-        {/* Fullscreen Preview Modal */}
-        {component && (
-          <FullscreenPreview
-            isOpen={isFullscreenPreview}
-            onClose={() => setIsFullscreenPreview(false)}
-            htmlCode={component.htmlCode}
-            cssCode={component.cssCode}
-            jsCode={component.jsCode || undefined}
-            name={component.name}
-          />
-        )}
       </div>
 
-      <VipRequiredModal
-        isOpen={showVipModal}
-        onClose={() => {
-          setShowVipModal(false)
-          navigate('/components')
-        }}
-        message="Component này yêu cầu tài khoản VIP để xem. Nâng cấp ngay để trải nghiệm đầy đủ!"
-      />
+      {/* Fullscreen Preview Modal */}
+      <AnimatePresence>
+        {isFullscreenPreview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-[#090912] flex flex-col"
+          >
+            {/* Header controls */}
+            <div className="bg-[#0b0b1a] px-6 py-4 flex items-center justify-between border-b border-white/[0.08]">
+              <div>
+                <h3 className="font-bold text-white text-base md:text-lg">{component.name}</h3>
+                <p className="text-white/40 text-xs italic">Xem thử nghiệm chế độ toàn màn hình</p>
+              </div>
+              <button
+                onClick={() => setIsFullscreenPreview(false)}
+                className="p-2 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] rounded-xl text-white/80 hover:text-white transition-all"
+                title="Đóng chế độ phóng to"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Rendering full-screen */}
+            <div className="flex-1 bg-[#0d0d1e] p-6 relative">
+              <iframe
+                srcDoc={`
+                  <!DOCTYPE html>
+                  <html>
+                    <head>
+                      <meta charset="UTF-8">
+                      <style>
+                        body {
+                          margin: 0;
+                          padding: 40px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          min-height: 90vh;
+                          background: #0d0d1e;
+                        }
+                        ${component.cssCode}
+                      </style>
+                    </head>
+                    <body>
+                      ${component.htmlCode}
+                      ${component.jsCode ? `<script>${component.jsCode}</script>` : ''}
+                    </body>
+                  </html>
+                `}
+                className="w-full h-full border-0 rounded-2xl bg-[#0d0d1e]"
+                title="Fullscreen Preview Pane"
+                sandbox="allow-scripts allow-same-origin"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

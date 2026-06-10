@@ -1,10 +1,10 @@
-import { useEffect, useState, lazy, Suspense } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import Header from '../cpnents/Header'
-import { designService, DesignComponent } from '../services/api'
+import Header from '../components/layout/Header'
+import Footer from '../components/layout/Footer'
 import { useScrollProgress } from '../hooks/useScrollProgress'
 
-// Lazy load 3D components để tránh SSR issues
+// Lazy load 3D/Interactive components
 const Hero = lazy(() => import('../components/sections/Hero').then(m => ({ default: m.Hero })))
 const Features = lazy(() => import('../components/sections/Features').then(m => ({ default: m.Features })))
 const Showcase = lazy(() => import('../components/sections/Showcase').then(m => ({ default: m.Showcase })))
@@ -12,7 +12,6 @@ const Testimonials = lazy(() => import('../components/sections/Testimonials').th
 const CTA = lazy(() => import('../components/sections/CTA').then(m => ({ default: m.CTA })))
 
 const Homepage3D = () => {
-  const [components, setComponents] = useState<DesignComponent[]>([])
   const { scrollProgress } = useScrollProgress()
 
   useEffect(() => {
@@ -47,18 +46,6 @@ const Homepage3D = () => {
     }).catch((err) => {
       console.warn('Lenis not available:', err)
     })
-
-    // Fetch components
-    const fetchComponents = async () => {
-      try {
-        const response = await designService.getAllComponents(undefined, undefined, undefined, undefined, undefined, 'popular', 1, 6)
-        setComponents(response.data)
-      } catch (err) {
-        console.error('Error fetching components:', err)
-      }
-    }
-
-    fetchComponents()
   }, [])
 
   // Progress bar
@@ -86,13 +73,13 @@ const Homepage3D = () => {
       <Suspense fallback={<div className="h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-purple-900"><div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-500"></div></div>}>
         <Hero />
         <Features />
-        <Showcase components={components} />
+        <Showcase />
         <Testimonials />
         <CTA />
+        <Footer />
       </Suspense>
     </div>
   )
 }
 
 export default Homepage3D
-
