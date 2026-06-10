@@ -31,7 +31,7 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-radial-mesh opacity-[0.15] dark:opacity-30 pointer-events-none z-1"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 max-w-7xl mx-auto w-full pt-16 md:pt-0">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full pb-24 md:pb-28 px-4 max-w-7xl mx-auto w-full pt-16 md:pt-0">
         <div className="text-center max-w-4xl mx-auto">
           {/* Badge */}
           <motion.div
@@ -122,31 +122,37 @@ export const Hero = () => {
         {/* Floating Interactive Micro Cards (SaaS Widgets style) */}
         <div className="hidden lg:block absolute inset-x-0 bottom-24 pointer-events-none z-5 h-0 overflow-visible">
           <div className="max-w-7xl mx-auto w-full relative">
-            <motion.div
-              initial={{ opacity: 0, x: -50, y: 30 }}
-              animate={{ opacity: 0.8, x: 0, y: 0 }}
-              transition={{ delay: 0.7, duration: 1 }}
-              className="absolute left-8 bottom-4 w-52 p-4 rounded-xl bg-secondary border border-border-primary shadow-sm flex items-center gap-3"
-            >
-              <div className="p-2 rounded-lg bg-indigo-500/20 text-indigo-600 dark:text-indigo-400">🔘</div>
-              <div>
-                <div className="text-xs font-bold text-text-primary">3D Push Button</div>
-                <div className="text-[10px] text-text-muted">Click interactions ready</div>
-              </div>
-            </motion.div>
+            <Link to="/components/btn-3d-push" className="pointer-events-auto">
+              <motion.div
+                initial={{ opacity: 0, x: -50, y: 30 }}
+                animate={{ opacity: 0.9, x: 0, y: 0 }}
+                whileHover={{ scale: 1.05, y: -4, opacity: 1 }}
+                transition={{ delay: 0.7, duration: 1 }}
+                className="absolute left-8 bottom-12 w-60 p-4 rounded-xl bg-secondary border border-border-primary shadow-sm flex items-center gap-3 cursor-pointer hover:border-indigo-500/50 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="p-2 rounded-lg bg-indigo-500/20 text-indigo-600 dark:text-indigo-400">🔘</div>
+                <div>
+                  <div className="text-xs font-bold text-text-primary">3D Push Button</div>
+                  <div className="text-[10px] text-text-muted">Click to view component</div>
+                </div>
+              </motion.div>
+            </Link>
             
-            <motion.div
-              initial={{ opacity: 0, x: 50, y: 30 }}
-              animate={{ opacity: 0.8, x: 0, y: 0 }}
-              transition={{ delay: 0.8, duration: 1 }}
-              className="absolute right-8 bottom-12 w-56 p-4 rounded-xl bg-secondary border border-border-primary shadow-sm flex items-center gap-3"
-            >
-              <div className="p-2 rounded-lg bg-pink-500/20 text-pink-600 dark:text-pink-400">🃏</div>
-              <div>
-                <div className="text-xs font-bold text-text-primary">Glassmorphism Card</div>
-                <div className="text-[10px] text-text-muted">Smooth hover transitions</div>
-              </div>
-            </motion.div>
+            <Link to="/components/card-glass" className="pointer-events-auto">
+              <motion.div
+                initial={{ opacity: 0, x: 50, y: 30 }}
+                animate={{ opacity: 0.9, x: 0, y: 0 }}
+                whileHover={{ scale: 1.05, y: -4, opacity: 1 }}
+                transition={{ delay: 0.8, duration: 1 }}
+                className="absolute right-8 bottom-12 w-60 p-4 rounded-xl bg-secondary border border-border-primary shadow-sm flex items-center gap-3 cursor-pointer hover:border-pink-500/50 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="p-2 rounded-lg bg-pink-500/20 text-pink-600 dark:text-pink-400">🃏</div>
+                <div>
+                  <div className="text-xs font-bold text-text-primary">Glassmorphism Card</div>
+                  <div className="text-[10px] text-text-muted">Click to view component</div>
+                </div>
+              </motion.div>
+            </Link>
           </div>
         </div>
       </div>
