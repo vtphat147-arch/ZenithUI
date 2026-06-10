@@ -2445,6 +2445,1251 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
   menu.classList.toggle('active');
 }`
   }
+,
+  {
+    id: 'card-spotlight-hover',
+    name: 'Spotlight Hover Card',
+    description: 'Glassmorphic card featuring a bright glowing spotlight accent following the cursor in real-time.',
+    category: 'cards',
+    tags: ['spotlight', 'glass', 'hover', 'card'],
+    framework: 'HTML/CSS/JS',
+    views: 1204,
+    likes: 218,
+    createdAt: '2026-06-10',
+    featured: true,
+    htmlCode: `<div class="spotlight-card" id="spotlight-1">
+  <div class="spotlight-glow"></div>
+  <div class="spotlight-content">
+    <span class="spotlight-badge">Featured</span>
+    <h3>Glass Spotlight Card</h3>
+    <p>Hover over this card to see a glowing spotlight follow your cursor dynamically. Built with CSS custom properties and pure Javascript.</p>
+    <a href="#" class="spotlight-link">Explore More &rarr;</a>
+  </div>
+</div>`,
+    cssCode: `.spotlight-card {
+  position: relative;
+  width: 350px;
+  padding: 32px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.spotlight-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(99, 102, 241, 0.15), transparent 40%);
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+.spotlight-content {
+  position: relative;
+  z-index: 2;
+}
+.spotlight-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #818cf8;
+  background: rgba(129, 140, 248, 0.1);
+  border-radius: 9999px;
+  margin-bottom: 20px;
+}
+.spotlight-content h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+.spotlight-content p {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.spotlight-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.spotlight-link:hover {
+  color: #818cf8;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #09090b; }`,
+    jsCode: `document.getElementById('spotlight-1').addEventListener('mousemove', (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  e.currentTarget.querySelector('.spotlight-glow').style.setProperty('--x', \`\${x}px\`);
+  e.currentTarget.querySelector('.spotlight-glow').style.setProperty('--y', \`\${y}px\`);
+});`
+  },
+  {
+    id: 'btn-magnetic',
+    name: 'Magnetic Force Button',
+    description: 'Button that pulls toward the user\'s cursor with elastic motion.',
+    category: 'buttons',
+    tags: ['magnetic', 'button', 'elastic', 'creative'],
+    framework: 'HTML/CSS/JS',
+    views: 1489,
+    likes: 310,
+    createdAt: '2026-06-10',
+    featured: true,
+    htmlCode: `<div class="magnetic-wrap">
+  <button class="magnetic-btn">
+    <span class="btn-text">Magnetic Pull</span>
+  </button>
+</div>`,
+    cssCode: `.magnetic-wrap {
+  display: inline-block;
+  padding: 30px;
+  cursor: pointer;
+}
+.magnetic-btn {
+  position: relative;
+  padding: 20px 48px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.btn-text {
+  position: relative;
+  z-index: 2;
+  display: block;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.magnetic-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s cubic-bezier(0.85, 0, 0.15, 1);
+  z-index: 1;
+  border-radius: inherit;
+}
+.magnetic-btn:hover::before {
+  transform: scaleY(1);
+  transform-origin: top;
+}
+.magnetic-btn:hover {
+  border-color: transparent;
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #0c0c0e; }`,
+    jsCode: `const wrap = document.querySelector('.magnetic-wrap');
+const btn = document.querySelector('.magnetic-btn');
+const text = document.querySelector('.btn-text');
+wrap.addEventListener('mousemove', (e) => {
+  const rect = wrap.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width/2;
+  const y = e.clientY - rect.top - rect.height/2;
+  btn.style.transform = \`translate(\${x * 0.35}px, \${y * 0.35}px)\`;
+  text.style.transform = \`translate(\${x * 0.15}px, \${y * 0.15}px)\`;
+});
+wrap.addEventListener('mouseleave', () => {
+  btn.style.transform = '';
+  text.style.transform = '';
+});`
+  },
+  {
+    id: 'nav-elastic-tabs',
+    name: 'Elastic Sliding Tabs',
+    description: 'Tab switcher where the active indicator background slides and bounces elastically to the hovered item.',
+    category: 'navbars',
+    tags: ['elastic', 'tabs', 'slider', 'menu'],
+    framework: 'HTML/CSS/JS',
+    views: 923,
+    likes: 198,
+    createdAt: '2026-06-10',
+    htmlCode: `<nav class="elastic-nav">
+  <div class="elastic-indicator"></div>
+  <button class="nav-tab active" onclick="moveIndicator(this)">Home</button>
+  <button class="nav-tab" onclick="moveIndicator(this)">Profile</button>
+  <button class="nav-tab" onclick="moveIndicator(this)">Analytics</button>
+  <button class="nav-tab" onclick="moveIndicator(this)">Settings</button>
+</nav>`,
+    cssCode: `.elastic-nav {
+  position: relative;
+  display: flex;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px;
+  border-radius: 16px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.nav-tab {
+  position: relative;
+  z-index: 2;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.nav-tab.active {
+  color: #fff;
+}
+.elastic-indicator {
+  position: absolute;
+  z-index: 1;
+  height: calc(100% - 12px);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 12px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #0a0a0f; }`,
+    jsCode: `function moveIndicator(tab) {
+  const tabs = tab.parentElement.querySelectorAll('.nav-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const indicator = tab.parentElement.querySelector('.elastic-indicator');
+  indicator.style.width = \`\${tab.offsetWidth}px\`;
+  indicator.style.left = \`\${tab.offsetLeft}px\`;
+}
+// Set initial size
+window.addEventListener('DOMContentLoaded', () => {
+  const activeTab = document.querySelector('.nav-tab.active');
+  if (activeTab) moveIndicator(activeTab);
+});`
+  },
+  {
+    id: 'btn-radial-menu',
+    name: 'Circular Radial Menu',
+    description: 'Floating action button that spreads out circular sub-options in a clean spiral/circle on hover/click.',
+    category: 'buttons',
+    tags: ['radial', 'menu', 'floating', 'active'],
+    framework: 'HTML/CSS/JS',
+    views: 1102,
+    likes: 247,
+    createdAt: '2026-06-10',
+    htmlCode: `<div class="radial-container">
+  <button class="radial-trigger" onclick="toggleRadial(this)">
+    <span class="plus-icon">+</span>
+  </button>
+  <div class="radial-item item-1" style="--angle: 0deg; --delay: 0.1s;"><span class="item-icon">🏠</span></div>
+  <div class="radial-item item-2" style="--angle: 72deg; --delay: 0.15s;"><span class="item-icon">👤</span></div>
+  <div class="radial-item item-3" style="--angle: 144deg; --delay: 0.2s;"><span class="item-icon">⚙️</span></div>
+  <div class="radial-item item-4" style="--angle: 216deg; --delay: 0.25s;"><span class="item-icon">🔔</span></div>
+  <div class="radial-item item-5" style="--angle: 288deg; --delay: 0.3s;"><span class="item-icon">✉️</span></div>
+</div>`,
+    cssCode: `.radial-container {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.radial-trigger {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(99,102,241,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.plus-icon {
+  display: inline-block;
+  transition: transform 0.3s;
+}
+.radial-container.active .plus-icon {
+  transform: rotate(45deg);
+}
+.radial-item {
+  position: absolute;
+  top: 8px; left: 8px;
+  width: 48px; height: 48px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(0, 0) scale(0.5);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: var(--delay);
+}
+.radial-container.active .radial-item {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(calc(cos(var(--angle)) * 90px), calc(sin(var(--angle)) * 90px)) scale(1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+.radial-item:hover {
+  background: rgba(99, 102, 241, 0.2) !important;
+  transform: translate(calc(cos(var(--angle)) * 95px), calc(sin(var(--angle)) * 95px)) scale(1.1) !important;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #09090b; }`,
+    jsCode: `function toggleRadial(trigger) {
+  trigger.parentElement.classList.toggle('active');
+}`
+  },
+  {
+    id: 'nav-morph-menu',
+    name: 'Morphing Hamburger Overlay',
+    description: 'Menu icon that morphs into a close X with a full-screen blurred glass backdrop menu sliding in.',
+    category: 'navbars',
+    tags: ['hamburger', 'menu', 'morph', 'overlay'],
+    framework: 'HTML/CSS/JS',
+    views: 1392,
+    likes: 312,
+    createdAt: '2026-06-10',
+    featured: true,
+    htmlCode: `<button class="morph-menu-btn" onclick="toggleMorphMenu(this)">
+  <svg width="40" height="40" viewBox="0 0 40 40">
+    <path class="line top" d="M 10 13 L 30 13"></path>
+    <path class="line middle" d="M 10 20 L 30 20"></path>
+    <path class="line bottom" d="M 10 27 L 30 27"></path>
+  </svg>
+</button>
+<div class="morph-menu-overlay" id="menu-overlay">
+  <nav class="morph-menu-nav">
+    <a href="#" class="menu-link" style="--i:1;">Home</a>
+    <a href="#" class="menu-link" style="--i:2;">Showcase</a>
+    <a href="#" class="menu-link" style="--i:3;">Services</a>
+    <a href="#" class="menu-link" style="--i:4;">Contact</a>
+  </nav>
+</div>`,
+    cssCode: `.morph-menu-btn {
+  position: fixed;
+  top: 30px; right: 30px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+.morph-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+.line {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.4s, stroke-dashoffset 0.4s, transform 0.4s;
+}
+.line.top { stroke-dasharray: 20 40; }
+.line.middle { stroke-dasharray: 20 40; }
+.line.bottom { stroke-dasharray: 20 40; }
+
+.morph-menu-btn.active .line.top {
+  transform: translate(5px, 7px) rotate(45deg);
+  transform-origin: 10px 13px;
+}
+.morph-menu-btn.active .line.middle {
+  transform: scaleX(0);
+  transform-origin: center;
+}
+.morph-menu-btn.active .line.bottom {
+  transform: translate(5px, -7px) rotate(-45deg);
+  transform-origin: 10px 27px;
+}
+.morph-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.75);
+  backdrop-filter: blur(30px);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.morph-menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.morph-menu-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.menu-link {
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--i) * 0.1s);
+  letter-spacing: -1px;
+}
+.morph-menu-overlay.active .menu-link {
+  transform: translateY(0);
+  opacity: 1;
+}
+.menu-link:hover {
+  color: #6366f1;
+  transform: scale(1.05);
+}
+body { min-height: 100vh; background: #09090b; }`,
+    jsCode: `function toggleMorphMenu(btn) {
+  btn.classList.toggle('active');
+  document.getElementById('menu-overlay').classList.toggle('active');
+}`
+  },
+  {
+    id: 'btn-cyberpunk-glitch',
+    name: 'Cyberpunk Glitch Button',
+    description: 'Button with interactive glitch states, cyberglow scanlines, and mechanical neon shadows.',
+    category: 'buttons',
+    tags: ['cyberpunk', 'glitch', 'neon', 'active'],
+    framework: 'HTML/CSS',
+    views: 1845,
+    likes: 412,
+    createdAt: '2026-06-10',
+    htmlCode: `<button class="cyberglow-btn">
+  <span class="btn-slice">_ACCESS_GRANTED</span>
+  <span class="btn-glitch"></span>
+</button>`,
+    cssCode: `.cyberglow-btn {
+  position: relative;
+  padding: 20px 48px;
+  background: transparent;
+  border: 1px solid #00f0ff;
+  border-radius: 4px;
+  color: #00f0ff;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+  transition: all 0.3s;
+}
+.cyberglow-btn::after {
+  content: 'RG_85';
+  position: absolute;
+  bottom: 2px; right: 4px;
+  font-size: 8px;
+  color: #ff007f;
+}
+.cyberglow-btn:hover {
+  background: #00f0ff;
+  color: #000;
+  box-shadow: 0 0 30px #00f0ff, 0 0 60px rgba(0, 240, 255, 0.4);
+  text-shadow: none;
+}
+.btn-glitch {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: #ff007f;
+  z-index: -1;
+}
+.cyberglow-btn:hover .btn-glitch {
+  display: block;
+  animation: glitch-anim 0.3s steps(2, start) infinite;
+}
+@keyframes glitch-anim {
+  0% { transform: translate(2px, 2px); background: #ff007f; }
+  50% { transform: translate(-2px, -2px); background: #00f0ff; }
+  100% { transform: translate(1px, -1px); background: #ff007f; }
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #08080a; }`
+  },
+  {
+    id: 'card-border-trace',
+    name: 'Traced Border Glow Card',
+    description: 'Card with a continuous glowing border trace rotating around the edges.',
+    category: 'cards',
+    tags: ['border', 'glowing', 'card', 'conic'],
+    framework: 'HTML/CSS',
+    views: 1540,
+    likes: 319,
+    createdAt: '2026-06-10',
+    featured: true,
+    htmlCode: `<div class="trace-card">
+  <div class="trace-inner">
+    <h3>Glowing Edge Card</h3>
+    <p>This card features an animated glow trace that travels around the border seamlessly, creating a premium highlight outline.</p>
+  </div>
+</div>`,
+    cssCode: `@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.trace-card {
+  position: relative;
+  width: 320px;
+  height: 200px;
+  border-radius: 20px;
+  background: #0d0d14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trace-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from var(--angle), transparent, #6366f1, #a855f7, transparent 40%);
+  border-radius: inherit;
+  z-index: -1;
+  animation: rotate-border 4s linear infinite;
+}
+@keyframes rotate-border {
+  to { --angle: 360deg; }
+}
+.trace-inner {
+  position: absolute;
+  inset: 2px;
+  background: #0d0d14;
+  border-radius: 18px;
+  padding: 28px;
+  color: #fff;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.trace-inner h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.trace-inner p {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #060608; }`
+  },
+  {
+    id: 'card-perspective-skew',
+    name: '3D Perspective Tilt Card',
+    description: 'Group of cards that shift and tilt in 3D perspective relative to cursor coordinates.',
+    category: 'cards',
+    tags: ['perspective', '3d', 'tilt', 'interactive'],
+    framework: 'HTML/CSS/JS',
+    views: 1294,
+    likes: 287,
+    createdAt: '2026-06-10',
+    htmlCode: `<div class="tilt-card" id="tilt-1">
+  <div class="tilt-glow"></div>
+  <div class="tilt-body">
+    <h4>3D Tilt Card</h4>
+    <p>Gently move your cursor across the card to experience dynamic 3D perspective tilt transformations.</p>
+  </div>
+</div>`,
+    cssCode: `.tilt-card {
+  position: relative;
+  width: 300px;
+  height: 380px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.1s ease-out;
+  overflow: hidden;
+}
+.tilt-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.06), transparent 50%);
+  pointer-events: none;
+}
+.tilt-body {
+  padding: 40px;
+  transform: translateZ(50px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.tilt-body h4 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.tilt-body p {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #0a0a0f; }`,
+    jsCode: `const card = document.getElementById('tilt-1');
+card.addEventListener('mousemove', (e) => {
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const xc = rect.width / 2;
+  const yc = rect.height / 2;
+  const dx = x - xc;
+  const dy = y - yc;
+  card.style.transform = \`rotateY(\${dx / 10}deg) rotateX(\${-dy / 10}deg) scale(1.03)\`;
+  card.style.setProperty('--gx', \`\${(x / rect.width) * 100}%\`);
+  card.style.setProperty('--gy', \`\${(y / rect.height) * 100}%\`);
+});
+card.addEventListener('mouseleave', () => {
+  card.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+});`
+  },
+  {
+    id: 'card-interactive-rating',
+    name: 'Interactive Rating Card',
+    description: 'Feedback rating scale featuring interactive face emojis (Angry, Neutral, Happy) that animate when selected.',
+    category: 'cards',
+    tags: ['rating', 'feedback', 'active', 'creative'],
+    framework: 'HTML/CSS/JS',
+    views: 1102,
+    likes: 218,
+    createdAt: '2026-06-10',
+    htmlCode: `<div class="feedback-card">
+  <h3>Rate your experience</h3>
+  <div class="emoji-container">
+    <button class="emoji-btn" onclick="selectFeedback(this, 'angry')">😡</button>
+    <button class="emoji-btn" onclick="selectFeedback(this, 'neutral')">😐</button>
+    <button class="emoji-btn" onclick="selectFeedback(this, 'happy')">😊</button>
+  </div>
+  <p class="feedback-status" id="feedback-msg">Select an emoji to leave feedback</p>
+</div>`,
+    cssCode: `.feedback-card {
+  background: #111116;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 32px;
+  width: 340px;
+  text-align: center;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #fff;
+}
+.feedback-card h3 {
+  font-size: 20px;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+.emoji-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.emoji-btn {
+  font-size: 36px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.emoji-btn:hover {
+  transform: scale(1.2);
+}
+.emoji-btn.active {
+  transform: scale(1.3);
+  filter: drop-shadow(0 0 10px rgba(99,102,241,0.5));
+}
+.feedback-status {
+  font-size: 13px;
+  color: #94a3b8;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #09090b; }`,
+    jsCode: `function selectFeedback(btn, type) {
+  const btns = btn.parentElement.querySelectorAll('.emoji-btn');
+  btns.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const msg = document.getElementById('feedback-msg');
+  if (type === 'angry') msg.innerText = 'We will work hard to make this better!';
+  if (type === 'neutral') msg.innerText = 'Thank you for your response.';
+  if (type === 'happy') msg.innerText = 'Awesome! Glad you love it!';
+}`
+  },
+  {
+    id: 'card-code-terminal',
+    name: 'Interactive Code Terminal',
+    description: 'Terminal mockup card with interactive file tabs, syntactically colored code segments, and a copy button.',
+    category: 'cards',
+    tags: ['terminal', 'code', 'highlight', 'tabs'],
+    framework: 'HTML/CSS/JS',
+    views: 1403,
+    likes: 318,
+    createdAt: '2026-06-10',
+    htmlCode: `<div class="terminal-card">
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+    </div>
+    <div class="terminal-tabs">
+      <button class="term-tab active" onclick="switchTermTab(this, 'index')">index.js</button>
+      <button class="term-tab" onclick="switchTermTab(this, 'styles')">styles.css</button>
+    </div>
+  </div>
+  <div class="terminal-body">
+    <pre id="code-index" class="code-block-term active"><code><span class="keyword">const</span> <span class="variable">express</span> = <span class="function">require</span>(<span class="string">'express'</span>);
+<span class="keyword">const</span> <span class="variable">app</span> = <span class="function">express</span>();
+
+<span class="variable">app</span>.<span class="function">get</span>(<span class="string">'/'</span>, (<span class="variable">req</span>, <span class="variable">res</span>) => {
+  <span class="variable">res</span>.<span class="function">send</span>(<span class="string">'Hello ZenithUI!'</span>);
+});
+
+<span class="variable">app</span>.<span class="function">listen</span>(<span class="number">3000</span>);</code></pre>
+    <pre id="code-styles" class="code-block-term"><code><span class="keyword">.box</span> {
+  <span class="attribute">display</span>: flex;
+  <span class="attribute">background</span>: <span class="string">#09090b</span>;
+  <span class="attribute">border-radius</span>: <span class="number">12px</span>;
+}</code></pre>
+  </div>
+</div>`,
+    cssCode: `.terminal-card {
+  background: #0c0d16;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  width: 440px;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', Fira Code, monospace;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+.terminal-header {
+  background: #111222;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+  margin-right: 20px;
+}
+.dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.dot.red { background: #ef4444; }
+.dot.yellow { background: #f59e0b; }
+.dot.green { background: #10b981; }
+.terminal-tabs {
+  display: flex;
+  gap: 4px;
+}
+.term-tab {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 12px;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.term-tab.active {
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+}
+.terminal-body {
+  padding: 24px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.code-block-term {
+  display: none;
+  margin: 0;
+}
+.code-block-term.active {
+  display: block;
+}
+.keyword { color: #f472b6; }
+.variable { color: #f87171; }
+.function { color: #60a5fa; }
+.string { color: #34d399; }
+.attribute { color: #fbbf24; }
+.number { color: #a78bfa; }
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #060608; }`,
+    jsCode: `function switchTermTab(btn, file) {
+  const tabs = btn.parentElement.querySelectorAll('.term-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const blocks = btn.closest('.terminal-card').querySelectorAll('.code-block-term');
+  blocks.forEach(b => b.classList.remove('active'));
+  document.getElementById(\`code-\${file}\`).classList.add('active');
+}`
+  },
+  {
+    id: 'ui-glow-accordion',
+    name: 'Glow Border Accordion',
+    description: 'Modern vertical accordion with subtle neon glows active on open states.',
+    category: 'layouts',
+    tags: ['accordion', 'menu', 'dropdown', 'glow'],
+    framework: 'HTML/CSS/JS',
+    views: 849,
+    likes: 172,
+    createdAt: '2026-06-10',
+    htmlCode: `<div class="accordion-group">
+  <div class="accordion-item" onclick="toggleAccordion(this)">
+    <div class="accordion-head">
+      <span>What is ZenithUI?</span>
+      <span class="chevron">&#9662;</span>
+    </div>
+    <div class="accordion-body">
+      <p>ZenithUI is a curated library of premium, handcrafted HTML & CSS components designed to save UI development time for designers and developers.</p>
+    </div>
+  </div>
+</div>`,
+    cssCode: `.accordion-group {
+  width: 400px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.accordion-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: all 0.3s;
+}
+.accordion-item:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 30px rgba(99,102,241,0.05);
+}
+.accordion-head {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+}
+.chevron {
+  transition: transform 0.3s;
+  color: #94a3b8;
+}
+.accordion-item.active .chevron {
+  transform: rotate(180deg);
+  color: #6366f1;
+}
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.85, 0, 0.15, 1);
+}
+.accordion-item.active .accordion-body {
+  max-height: 150px;
+}
+.accordion-body p {
+  padding: 0 24px 24px 24px;
+  color: #94a3b8;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 0;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #08080a; }`,
+    jsCode: `function toggleAccordion(item) {
+  item.classList.toggle('active');
+}`
+  },
+  {
+    id: 'modal-double-blur',
+    name: 'Double-Layer Blur Dialog',
+    description: 'Bouncy scale-in modal popup that triggers a foreground blur of the content card alongside deep backdrop blur.',
+    category: 'modals',
+    tags: ['modal', 'blur', 'dialog', 'confirm'],
+    framework: 'HTML/CSS/JS',
+    views: 1294,
+    likes: 310,
+    createdAt: '2026-06-10',
+    featured: true,
+    htmlCode: `<button class="open-modal-btn" onclick="openDoubleModal()">Trigger Modal</button>
+<div class="double-modal-overlay" id="dbl-overlay">
+  <div class="double-modal-card">
+    <h3>Discard Changes?</h3>
+    <p>You have unsaved adjustments that will be lost permanently. Are you sure you want to discard them?</p>
+    <div class="modal-buttons">
+      <button class="btn-cancel" onclick="closeDoubleModal()">Cancel</button>
+      <button class="btn-discard" onclick="closeDoubleModal()">Discard</button>
+    </div>
+  </div>
+</div>`,
+    cssCode: `.open-modal-btn {
+  padding: 16px 36px;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+  transition: all 0.3s;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.open-modal-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+.double-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.double-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.double-modal-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 32px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.double-modal-overlay.active .double-modal-card {
+  transform: scale(1);
+}
+.double-modal-card h3 {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.double-modal-card p {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+}
+.modal-buttons button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s;
+}
+.btn-cancel {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.btn-discard {
+  background: #ef4444;
+  color: #fff;
+}
+.btn-discard:hover {
+  background: #dc2626;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #09090b; }`,
+    jsCode: `function openDoubleModal() {
+  document.getElementById('dbl-overlay').classList.add('active');
+}
+function closeDoubleModal() {
+  document.getElementById('dbl-overlay').classList.remove('active');
+}`
+  },
+  {
+    id: 'form-drag-drop-upload',
+    name: 'Drag & Drop Upload Zone',
+    description: 'Interactive file uploading interface showing progress indicator rings, dragover hover states, and success indicators.',
+    category: 'forms',
+    tags: ['upload', 'file', 'drag', 'drop'],
+    framework: 'HTML/CSS/JS',
+    views: 1204,
+    likes: 219,
+    createdAt: '2026-06-10',
+    htmlCode: `<div class="drop-zone" id="upload-zone">
+  <div class="drop-icon">&#9729;</div>
+  <p class="drop-title">Drag & drop your file here</p>
+  <p class="drop-sub">Supporting PDF, PNG, JPG up to 10MB</p>
+  <button class="drop-btn" onclick="triggerFileInput()">Browse File</button>
+  <input type="file" id="file-input" style="display:none;" />
+</div>`,
+    cssCode: `.drop-zone {
+  width: 360px;
+  padding: 40px;
+  background: rgba(255,255,255,0.01);
+  border: 2px dashed rgba(255,255,255,0.15);
+  border-radius: 24px;
+  text-align: center;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: all 0.3s;
+}
+.drop-zone.dragover {
+  background: rgba(99,102,241,0.04);
+  border-color: #6366f1;
+  box-shadow: 0 0 30px rgba(99,102,241,0.1);
+}
+.drop-icon {
+  font-size: 48px;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 16px;
+  transition: color 0.3s;
+}
+.drop-zone.dragover .drop-icon {
+  color: #6366f1;
+}
+.drop-title {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.drop-sub {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+.drop-btn {
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.drop-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #08080a; }`,
+    jsCode: `function triggerFileInput() {
+  document.getElementById('file-input').click();
+}
+const zone = document.getElementById('upload-zone');
+zone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  zone.classList.add('dragover');
+});
+zone.addEventListener('dragleave', () => {
+  zone.classList.remove('dragover');
+});
+zone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  zone.classList.remove('dragover');
+  const files = e.dataTransfer.files;
+  if(files.length) alert(\`Received file: \${files[0].name}\`);
+});`
+  },
+  {
+    id: 'card-pricing-switcher',
+    name: 'Pricing Interactive Card',
+    description: 'Subscription tier card displaying Monthly/Yearly options with sliding discount banners.',
+    category: 'cards',
+    tags: ['pricing', 'switcher', 'card', 'active'],
+    framework: 'HTML/CSS/JS',
+    views: 1102,
+    likes: 248,
+    createdAt: '2026-06-10',
+    htmlCode: `<div class="pricing-card-box">
+  <div class="pricing-toggle-wrap">
+    <span class="toggle-lbl active">Monthly</span>
+    <button class="pricing-toggle" onclick="togglePricing(this)"></button>
+    <span class="toggle-lbl">Annually</span>
+  </div>
+  <div class="price-val">$<span id="price-amt">19</span><span class="period">/mo</span></div>
+</div>`,
+    cssCode: `.pricing-card-box {
+  background: #111116;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 32px;
+  width: 300px;
+  text-align: center;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #fff;
+}
+.pricing-toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.toggle-lbl {
+  font-size: 13.5px;
+  color: #64748b;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.toggle-lbl.active {
+  color: #fff;
+}
+.pricing-toggle {
+  width: 48px; height: 26px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+}
+.pricing-toggle::before {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 20px; height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+.pricing-toggle.annually::before {
+  transform: translateX(22px);
+  background: #6366f1;
+}
+.price-val {
+  font-size: 48px;
+  font-weight: 800;
+  margin-top: 12px;
+}
+.period {
+  font-size: 16px;
+  color: #64748b;
+  font-weight: 500;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #09090b; }`,
+    jsCode: `function togglePricing(btn) {
+  btn.classList.toggle('annually');
+  const amt = document.getElementById('price-amt');
+  const isAnnually = btn.classList.contains('annually');
+  amt.innerText = isAnnually ? '144' : '19';
+  const labels = btn.parentElement.querySelectorAll('.toggle-lbl');
+  labels[0].classList.toggle('active', !isAnnually);
+  labels[1].classList.toggle('active', isAnnually);
+}`
+  },
+  {
+    id: 'tooltip-glow-card',
+    name: 'Rich Glow Tooltip',
+    description: 'Hover tooltip containing rich markup, images, and description blocks with elegant fade/slide-up animations.',
+    category: 'tooltips',
+    tags: ['tooltip', 'glow', 'rich', 'hover'],
+    framework: 'HTML/CSS',
+    views: 948,
+    likes: 193,
+    createdAt: '2026-06-10',
+    htmlCode: `<div class="tooltip-container-glow">
+  <span class="tooltip-trigger-glow">Hover Info</span>
+  <div class="tooltip-content-glow">
+    <h5>Advanced Metrics</h5>
+    <p>Unlock complete statistical overviews and detailed graphical metrics on demand.</p>
+  </div>
+</div>`,
+    cssCode: `.tooltip-container-glow {
+  position: relative;
+  display: inline-block;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.tooltip-trigger-glow {
+  color: #fff;
+  font-weight: 700;
+  border-bottom: 1px dashed #6366f1;
+  cursor: pointer;
+  padding-bottom: 2px;
+}
+.tooltip-content-glow {
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 260px;
+  padding: 16px;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.1);
+}
+.tooltip-container-glow:hover .tooltip-content-glow {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.tooltip-content-glow h5 {
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 700;
+}
+.tooltip-content-glow p {
+  margin: 0;
+  font-size: 11.5px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #08080a; }`
+  }
 ]
 
 // Helper functions
