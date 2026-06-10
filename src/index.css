@@ -12,17 +12,57 @@ html.lenis { height: auto; }
 .lenis.lenis-scrolling iframe { pointer-events: none; }
 
 /* ═══════════════════════════════════════
+   THEME STYLES (Light & Dark variables)
+   ═══════════════════════════════════════ */
+:root {
+  /* Light mode colors - softer, cleaner slate tint */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border-color: rgba(15, 23, 42, 0.08);
+
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(15, 23, 42, 0.06);
+  --glass-hover-bg: rgba(255, 255, 255, 0.85);
+  --card-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05), 0 1px 3px 0 rgba(15, 23, 42, 0.02);
+  --dot-color: rgba(15, 23, 42, 0.04);
+}
+
+.dark {
+  /* Dark mode colors - premium space depth */
+  --bg-primary: #090915;
+  --bg-secondary: #0c0c20;
+  --bg-tertiary: #11112b;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.06);
+
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-hover-bg: rgba(255, 255, 255, 0.05);
+  --card-shadow: 0 20px 60px rgba(102, 126, 234, 0.1);
+  --dot-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ═══════════════════════════════════════
    BASE STYLES
    ═══════════════════════════════════════ */
 @layer base {
   * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
   }
 
   body {
-    @apply bg-surface text-gray-100 font-sans;
-    background: #050510;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   /* Typography */
@@ -57,7 +97,7 @@ html.lenis { height: auto; }
 }
 
 ::-webkit-scrollbar-track {
-  background: #050510;
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -87,21 +127,22 @@ html.lenis { height: auto; }
    ═══════════════════════════════════════ */
 @layer components {
   .glass {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
   }
 
   .glass-hover {
     @apply glass;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glass-hover:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--glass-hover-bg);
     border-color: rgba(102, 126, 234, 0.3);
-    box-shadow: 0 16px 48px rgba(102, 126, 234, 0.12);
+    box-shadow: var(--card-shadow);
     transform: translateY(-4px);
   }
 
@@ -138,7 +179,7 @@ html.lenis { height: auto; }
 
   /* Dot Grid Background */
   .dot-grid {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
     background-size: 32px 32px;
   }
 
@@ -184,15 +225,15 @@ html.lenis { height: auto; }
      ═══════════════════════════════════════ */
   .category-pill {
     @apply px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border cursor-pointer whitespace-nowrap;
-    background: rgba(255, 255, 255, 0.02);
-    border-color: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.6);
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    color: var(--text-secondary);
   }
 
   .category-pill:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
-    color: rgba(255, 255, 255, 0.9);
+    background: var(--glass-hover-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
     transform: translateY(-1px);
   }
 
@@ -208,8 +249,8 @@ html.lenis { height: auto; }
      ═══════════════════════════════════════ */
   .bento-card {
     @apply relative rounded-3xl border overflow-hidden transition-all duration-500;
-    background: rgba(255, 255, 255, 0.02);
-    border-color: rgba(255, 255, 255, 0.06);
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
   }
 
   .bento-card::before {
@@ -217,7 +258,7 @@ html.lenis { height: auto; }
     position: absolute;
     inset: 0;
     background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(102, 126, 234, 0.08),
+      var(--accent-glow),
       transparent 40%
     );
     opacity: 0;
@@ -231,7 +272,7 @@ html.lenis { height: auto; }
   .bento-card:hover {
     border-color: rgba(102, 126, 234, 0.25);
     transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.1);
+    box-shadow: var(--card-shadow);
   }
 
   /* ═══════════════════════════════════════
@@ -239,16 +280,14 @@ html.lenis { height: auto; }
      ═══════════════════════════════════════ */
   .component-card {
     @apply relative rounded-2xl border overflow-hidden transition-all duration-300;
-    background: rgba(255, 255, 255, 0.015);
-    border-color: rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
   }
 
   .component-card:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--glass-hover-bg);
     border-color: rgba(102, 126, 234, 0.3);
-    box-shadow:
-      0 24px 64px rgba(102, 126, 234, 0.12),
-      0 0 0 1px rgba(102, 126, 234, 0.15);
+    box-shadow: var(--card-shadow);
     transform: translateY(-6px);
   }
 
@@ -266,14 +305,15 @@ html.lenis { height: auto; }
      ═══════════════════════════════════════ */
   .stat-card {
     @apply text-center p-8 rounded-2xl border transition-all duration-300;
-    background: rgba(255, 255, 255, 0.02);
-    border-color: rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
   }
 
   .stat-card:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--glass-hover-bg);
     border-color: rgba(102, 126, 234, 0.2);
     transform: translateY(-2px);
+    box-shadow: var(--card-shadow);
   }
 
   /* ═══════════════════════════════════════

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Code2, Menu, X, Sparkles, Github } from 'lucide-react'
+import { Code2, Menu, X, Sparkles, Github, Sun, Moon } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { componentsData } from '../../data/components'
 
@@ -9,6 +9,20 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const location = useLocation()
 
+  // Theme support
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme')
+      if (saved) return saved
+      // Check system preference
+      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        return 'light'
+      }
+      return 'dark'
+    }
+    return 'dark'
+  })
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
@@ -16,6 +30,20 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    const root = window.document.documentElement
+    if (theme === 'dark') {
+      root.classList.add('dark')
+    } else {
+      root.classList.remove('dark')
+    }
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark')
+  }
 
   const navItems = [
     { path: '/', label: 'Trang chủ' },
@@ -34,7 +62,7 @@ const Header = () => {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-[#050510]/80 backdrop-blur-2xl shadow-lg shadow-black/20'
+          ? 'bg-primary/80 backdrop-blur-2xl shadow-lg border-b border-border-primary'
           : 'bg-transparent'
       }`}
     >
@@ -58,10 +86,10 @@ const Header = () => {
               </div>
             </motion.div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-white tracking-tight">
+              <span className="text-lg font-bold text-text-primary tracking-tight">
                 ZenithUI
               </span>
-              <span className="text-[10px] text-white/40 font-medium uppercase tracking-[0.2em]">
+              <span className="text-[10px] text-text-muted font-medium uppercase tracking-[0.2em]">
                 Free Library
               </span>
             </div>
@@ -79,12 +107,12 @@ const Header = () => {
                 >
                   <span
                     className={`relative z-10 text-sm transition-colors duration-300 flex items-center gap-1.5 ${
-                      active ? 'text-white' : 'text-white/50 group-hover:text-white/80'
+                      active ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'
                     }`}
                   >
                     <span>{item.label}</span>
                     {item.path === '/components' && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-bold font-mono">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-500 dark:text-indigo-300 border border-indigo-500/30 font-bold font-mono">
                         {componentsData.length}
                       </span>
                     )}
@@ -92,7 +120,7 @@ const Header = () => {
                   {active && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className="absolute inset-0 bg-white/[0.06] rounded-lg border border-white/[0.06]"
+                      className="absolute inset-0 bg-text-primary/[0.06] rounded-lg border border-text-primary/[0.06]"
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
                     />
                   )}
@@ -101,16 +129,32 @@ const Header = () => {
             })}
           </nav>
 
-          {/* CTA */}
+          {/* CTA & Tools */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Theme Toggle Switch */}
+            <button
+              onClick={toggleTheme}
+              className="p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-text-primary/[0.06] transition-all duration-300"
+              aria-label="Toggle theme"
+              title={theme === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5 text-amber-400" />
+              ) : (
+                <Moon className="w-5 h-5 text-indigo-600" />
+              )}
+            </button>
+
+            {/* Github link */}
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl text-white/40 hover:text-white/80 hover:bg-white/[0.06] transition-all duration-300"
+              className="p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-text-primary/[0.06] transition-all duration-300"
             >
               <Github className="w-5 h-5" />
             </a>
+
             <Link
               to="/components"
               className="group relative px-5 py-2.5 bg-gradient-to-r from-accent-400 to-neon-purple text-white rounded-xl font-semibold text-sm overflow-hidden transition-all duration-300 hover:shadow-glow"
@@ -128,14 +172,30 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-xl text-white/60 hover:bg-white/[0.06] transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile Actions block */}
+          <div className="flex md:hidden items-center gap-2">
+            {/* Theme Toggle (Mobile) */}
+            <button
+              onClick={toggleTheme}
+              className="p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-text-primary/[0.06] transition-all duration-300"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5 text-amber-400" />
+              ) : (
+                <Moon className="w-5 h-5 text-indigo-600" />
+              )}
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2.5 rounded-xl text-text-secondary hover:bg-text-primary/[0.06] transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -147,7 +207,7 @@ const Header = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden bg-surface-500/95 backdrop-blur-2xl border-t border-white/[0.06]"
+            className="md:hidden overflow-hidden bg-primary/95 backdrop-blur-2xl border-t border-border-primary"
           >
             <nav className="max-w-7xl mx-auto px-4 py-4 space-y-1">
               {navItems.map((item, index) => (
@@ -163,7 +223,7 @@ const Header = () => {
                     className={`block px-4 py-3 rounded-xl font-medium text-sm transition-all duration-300 ${
                       isActive(item.path)
                         ? 'bg-accent-400/10 text-accent-400 border border-accent-400/20'
-                        : 'text-white/60 hover:bg-white/[0.04] hover:text-white/80'
+                        : 'text-text-secondary hover:bg-text-primary/[0.04] hover:text-text-primary'
                     }`}
                   >
                     {item.label}

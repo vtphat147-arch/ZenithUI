@@ -222,7 +222,7 @@ const ComponentDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#050510] text-white flex flex-col">
+      <div className="min-h-screen bg-primary text-text-primary flex flex-col">
         <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
@@ -233,11 +233,11 @@ const ComponentDetail = () => {
 
   if (!component) {
     return (
-      <div className="min-h-screen bg-[#050510] text-white flex flex-col">
+      <div className="min-h-screen bg-primary text-text-primary flex flex-col">
         <Header />
         <div className="flex-grow flex flex-col items-center justify-center px-4">
           <h2 className="text-2xl font-bold mb-4">Component không tồn tại</h2>
-          <Link to="/components" className="text-indigo-400 hover:text-indigo-300 flex items-center gap-2">
+          <Link to="/components" className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 flex items-center gap-2">
             <ArrowLeft className="w-5 h-5" /> Quay lại thư viện
           </Link>
         </div>
@@ -246,7 +246,7 @@ const ComponentDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#050510] text-white">
+    <div className="min-h-screen bg-primary text-text-primary transition-colors duration-500">
       <Header />
       
       <div className="container mx-auto px-4 pt-28 pb-16 max-w-7xl">
@@ -257,7 +257,7 @@ const ComponentDetail = () => {
         >
           <Link
             to="/components"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] rounded-full text-white/80 hover:text-white transition-all duration-300 mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-tertiary hover:bg-secondary border border-border-primary rounded-full text-text-secondary hover:text-text-primary transition-all duration-300 mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Thư viện component
@@ -268,26 +268,26 @@ const ComponentDetail = () => {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 bg-white/[0.02] border border-white/[0.06] rounded-3xl p-6 md:p-8"
+          className="mb-8 bg-secondary border border-border-primary rounded-3xl p-6 md:p-8"
         >
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <div className="flex-1">
-              <h1 className="text-3xl md:text-5xl font-black mb-4 bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-5xl font-black mb-4 bg-gradient-to-r from-text-primary via-text-primary to-text-secondary bg-clip-text text-transparent">
                 {component.name}
               </h1>
-              <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6">
+              <p className="text-text-secondary text-base md:text-lg leading-relaxed mb-6">
                 {component.description}
               </p>
               
               <div className="flex flex-wrap items-center gap-3">
-                <span className="px-4 py-1.5 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <span className="px-4 py-1.5 bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20 rounded-full text-xs font-semibold uppercase tracking-wider">
                   {component.category}
                 </span>
-                <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-semibold uppercase tracking-wider">
                   {component.framework}
                 </span>
                 {component.tags && component.tags.map((tag, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-white/[0.03] text-white/50 border border-white/[0.05] rounded-full text-xs">
+                  <span key={idx} className="px-3 py-1 bg-tertiary text-text-muted border border-border-primary rounded-full text-xs">
                     #{tag.trim()}
                   </span>
                 ))}
@@ -304,15 +304,15 @@ const ComponentDetail = () => {
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl font-bold transition-all border ${
                   hasLiked 
                     ? 'bg-pink-500/10 text-pink-500 border-pink-500/30' 
-                    : 'bg-white/[0.03] hover:bg-white/[0.06] border-white/[0.08] text-white/80'
+                    : 'bg-tertiary hover:bg-secondary border-border-primary text-text-secondary hover:text-text-primary'
                 }`}
               >
                 <Heart className={`w-5 h-5 ${hasLiked ? 'fill-pink-500 text-pink-500' : ''}`} />
                 <span>{likesCount}</span>
               </motion.button>
               
-              <div className="flex items-center gap-2 px-5 py-2.5 bg-white/[0.03] border border-white/[0.08] text-white/70 rounded-2xl font-bold">
-                <Eye className="w-5 h-5 text-indigo-400" />
+              <div className="flex items-center gap-2 px-5 py-2.5 bg-tertiary border border-border-primary text-text-secondary rounded-2xl font-bold">
+                <Eye className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />
                 <span>{viewsCount}</span>
               </div>
             </div>
@@ -328,19 +328,19 @@ const ComponentDetail = () => {
             transition={{ duration: 0.5 }}
             className="flex flex-col"
           >
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-3xl overflow-hidden flex flex-col h-full">
+            <div className="bg-secondary border border-border-primary rounded-3xl overflow-hidden flex flex-col h-full">
               {/* Toolbar */}
-              <div className="p-4 bg-white/[0.02] border-b border-white/[0.06] flex items-center justify-between">
+              <div className="p-4 bg-tertiary border-b border-border-primary flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-red-500/60" />
                   <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
                   <span className="w-3 h-3 rounded-full bg-green-500/60" />
-                  <span className="ml-3 text-sm font-semibold text-white/70">Live Preview</span>
+                  <span className="ml-3 text-sm font-semibold text-text-secondary">Live Preview</span>
                 </div>
                 
                 <button
                   onClick={() => setIsFullscreenPreview(true)}
-                  className="p-2 hover:bg-white/[0.05] rounded-lg text-white/75 hover:text-white transition-colors"
+                  className="p-2 hover:bg-text-primary/[0.05] rounded-lg text-text-secondary hover:text-text-primary transition-colors"
                   title="Xem toàn màn hình"
                 >
                   <Maximize2 className="w-5 h-5" />
@@ -381,7 +381,7 @@ const ComponentDetail = () => {
               </div>
 
               {/* Action bar below preview */}
-              <div className="p-4 bg-white/[0.01] border-t border-white/[0.06] flex items-center justify-between flex-wrap gap-4 relative">
+              <div className="p-4 bg-tertiary border-t border-border-primary flex items-center justify-between flex-wrap gap-4 relative">
                 {/* Heart animation containers */}
                 {flyingHearts.map((heart) => (
                   <motion.div
@@ -406,9 +406,9 @@ const ComponentDetail = () => {
                   <div className="relative">
                     <button
                       onClick={handleShare}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] rounded-xl text-white/80 hover:text-white transition-colors font-semibold text-sm"
+                      className="flex items-center gap-2 px-4 py-2.5 bg-tertiary hover:bg-secondary border border-border-primary rounded-xl text-text-secondary hover:text-text-primary transition-colors font-semibold text-sm"
                     >
-                      <Share2 className="w-4 h-4 text-indigo-400" />
+                      <Share2 className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
                       <span>Chia sẻ</span>
                     </button>
                     {showShareTooltip && (
@@ -422,24 +422,24 @@ const ComponentDetail = () => {
                   <div className="relative">
                     <button
                       onClick={() => setShowDownloadMenu(!showDownloadMenu)}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] rounded-xl text-white/80 hover:text-white transition-colors font-semibold text-sm"
+                      className="flex items-center gap-2 px-4 py-2.5 bg-tertiary hover:bg-secondary border border-border-primary rounded-xl text-text-secondary hover:text-text-primary transition-colors font-semibold text-sm"
                     >
-                      <Download className="w-4 h-4 text-emerald-400" />
+                      <Download className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                       <span>Tải code</span>
                     </button>
                     {showDownloadMenu && (
-                      <div className="absolute bottom-full left-0 mb-2 bg-[#090918] border border-white/[0.08] rounded-xl p-2 shadow-2xl z-30 min-w-[160px]">
-                        <button onClick={() => downloadCode('html')} className="w-full text-left px-3 py-2 text-xs text-white/70 hover:text-white hover:bg-white/[0.05] rounded-lg">HTML Code</button>
-                        <button onClick={() => downloadCode('css')} className="w-full text-left px-3 py-2 text-xs text-white/70 hover:text-white hover:bg-white/[0.05] rounded-lg">CSS Code</button>
-                        {component.jsCode && <button onClick={() => downloadCode('js')} className="w-full text-left px-3 py-2 text-xs text-white/70 hover:text-white hover:bg-white/[0.05] rounded-lg">JavaScript Code</button>}
-                        <div className="h-px bg-white/[0.08] my-1" />
-                        <button onClick={() => downloadCode('all')} className="w-full text-left px-3 py-2 text-xs font-semibold text-emerald-400 hover:bg-white/[0.05] rounded-lg">Trọn gói HTML/CSS</button>
+                      <div className="absolute bottom-full left-0 mb-2 bg-secondary border border-border-primary rounded-xl p-2 shadow-2xl z-30 min-w-[160px]">
+                        <button onClick={() => downloadCode('html')} className="w-full text-left px-3 py-2 text-xs text-text-secondary hover:text-text-primary hover:bg-tertiary rounded-lg">HTML Code</button>
+                        <button onClick={() => downloadCode('css')} className="w-full text-left px-3 py-2 text-xs text-text-secondary hover:text-text-primary hover:bg-tertiary rounded-lg">CSS Code</button>
+                        {component.jsCode && <button onClick={() => downloadCode('js')} className="w-full text-left px-3 py-2 text-xs text-text-secondary hover:text-text-primary hover:bg-tertiary rounded-lg">JavaScript Code</button>}
+                        <div className="h-px bg-border-primary my-1" />
+                        <button onClick={() => downloadCode('all')} className="w-full text-left px-3 py-2 text-xs font-semibold text-emerald-500 dark:text-emerald-400 hover:bg-tertiary rounded-lg">Trọn gói HTML/CSS</button>
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div className="text-xs text-white/40 italic">
+                <div className="text-xs text-text-muted italic">
                   * Nhấp tải code trọn gói để lấy đầy đủ file HTML, CSS mẫu.
                 </div>
               </div>
@@ -453,17 +453,17 @@ const ComponentDetail = () => {
             transition={{ duration: 0.5 }}
             className="flex flex-col"
           >
-            <div className="bg-[#04040e] border border-white/[0.06] rounded-3xl overflow-hidden flex flex-col h-full">
+            <div className="bg-[#0c0c1e] border border-border-primary rounded-3xl overflow-hidden flex flex-col h-full">
               {/* Tab Selector */}
-              <div className="flex bg-white/[0.02] border-b border-white/[0.06]">
+              <div className="flex bg-tertiary/50 border-b border-border-primary">
                 {(['html', 'css', 'js'] as const).map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={`flex-1 px-4 py-4 font-bold text-sm tracking-wider uppercase transition-all border-b-2 ${
                       activeTab === tab
-                        ? 'text-indigo-400 border-indigo-500 bg-white/[0.01]'
-                        : 'text-white/40 border-transparent hover:text-white/80'
+                        ? 'text-indigo-500 dark:text-indigo-400 border-indigo-500 bg-secondary/10'
+                        : 'text-text-muted border-transparent hover:text-text-secondary'
                     }`}
                   >
                     {tab === 'js' ? 'Javascript' : tab}
@@ -475,18 +475,18 @@ const ComponentDetail = () => {
               <div className="p-6 flex-grow flex flex-col min-h-[450px]">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-yellow-400" />
-                    <span className="text-xs text-white/40 font-mono">Source Editor</span>
+                    <Sparkles className="w-4 h-4 text-yellow-500" />
+                    <span className="text-xs text-text-muted font-mono">Source Editor</span>
                   </div>
                   
                   <button
                     onClick={() => handleCopy(getCodeByTab(), activeTab)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] text-white/80 hover:text-white text-xs font-semibold rounded-lg transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-tertiary hover:bg-secondary border border-border-primary text-text-secondary hover:text-text-primary text-xs font-semibold rounded-lg transition-colors"
                   >
                     {copied === activeTab ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-green-400" />
-                        <span className="text-green-400">Đã copy!</span>
+                        <Check className="w-3.5 h-3.5 text-green-500" />
+                        <span className="text-green-500">Đã copy!</span>
                       </>
                     ) : (
                       <>
@@ -497,7 +497,7 @@ const ComponentDetail = () => {
                   </button>
                 </div>
 
-                <div className="flex-grow bg-[#020208] border border-white/[0.04] rounded-2xl p-4 overflow-auto max-h-[350px]">
+                <div className="flex-grow bg-[#0d1117] border border-border-primary rounded-2xl p-4 overflow-auto max-h-[350px]">
                   <pre className="text-white/80 text-xs font-mono leading-relaxed whitespace-pre-wrap">
                     <code>{getCodeByTab()}</code>
                   </pre>
@@ -510,36 +510,36 @@ const ComponentDetail = () => {
         {/* Local comments & Reviews section */}
         <div className="grid lg:grid-cols-3 gap-8 mt-12 mb-16">
           <div className="lg:col-span-2">
-            <div className="bg-white/[0.01] border border-white/[0.06] rounded-3xl p-6 md:p-8">
+            <div className="bg-secondary border border-border-primary rounded-3xl p-6 md:p-8">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-indigo-400" />
+                <MessageSquare className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />
                 <span>Bình luận ({comments.length})</span>
               </h3>
 
               {/* Comments form */}
-              <form onSubmit={handleAddComment} className="mb-8 bg-white/[0.02] border border-white/[0.05] p-5 rounded-2xl">
+              <form onSubmit={handleAddComment} className="mb-8 bg-tertiary/50 border border-border-primary p-5 rounded-2xl">
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-xs text-white/50 font-bold uppercase tracking-wider mb-2">Tên của bạn</label>
+                    <label className="block text-xs text-text-secondary font-bold uppercase tracking-wider mb-2">Tên của bạn</label>
                     <input
                       type="text"
                       placeholder="Nhập tên..."
                       required
                       value={newCommentName}
                       onChange={(e) => setNewCommentName(e.target.value)}
-                      className="w-full px-4 py-2 bg-[#09091b] border border-white/[0.08] rounded-xl text-white outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                      className="w-full px-4 py-2 bg-tertiary border border-border-primary text-text-primary outline-none focus:ring-1 focus:ring-indigo-500 text-sm rounded-xl"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-white/50 font-bold uppercase tracking-wider mb-2">Nội dung bình luận</label>
+                  <label className="block text-xs text-text-secondary font-bold uppercase tracking-wider mb-2">Nội dung bình luận</label>
                   <textarea
                     rows={3}
                     placeholder="Chia sẻ ý kiến của bạn về component này..."
                     required
                     value={newCommentText}
                     onChange={(e) => setNewCommentText(e.target.value)}
-                    className="w-full px-4 py-3 bg-[#09091b] border border-white/[0.08] rounded-xl text-white outline-none focus:ring-1 focus:ring-indigo-500 text-sm resize-none"
+                    className="w-full px-4 py-3 bg-tertiary border border-border-primary text-text-primary outline-none focus:ring-1 focus:ring-indigo-500 text-sm resize-none rounded-xl"
                   />
                 </div>
                 <div className="flex justify-end mt-4">
@@ -556,24 +556,24 @@ const ComponentDetail = () => {
               {/* Comments display */}
               <div className="space-y-6 max-h-[400px] overflow-auto pr-2">
                 {comments.length === 0 ? (
-                  <p className="text-white/40 text-sm italic">Chưa có bình luận nào. Hãy trở thành người đầu tiên!</p>
+                  <p className="text-text-muted text-sm italic">Chưa có bình luận nào. Hãy trở thành người đầu tiên!</p>
                 ) : (
                   comments.map((c) => (
-                    <div key={c.id} className="flex gap-4 border-b border-white/[0.04] pb-6 last:border-0 last:pb-0">
+                    <div key={c.id} className="flex gap-4 border-b border-border-primary pb-6 last:border-0 last:pb-0">
                       <img
                         src={c.avatar}
                         alt={c.author}
-                        className="w-10 h-10 rounded-full object-cover border border-white/[0.1] bg-white/5"
+                        className="w-10 h-10 rounded-full object-cover border border-border-primary bg-secondary"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&h=80&q=80'
                         }}
                       />
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-bold text-sm text-white">{c.author}</h4>
-                          <span className="text-[10px] text-white/40">{new Date(c.createdAt).toLocaleDateString('vi-VN')}</span>
+                          <h4 className="font-bold text-sm text-text-primary">{c.author}</h4>
+                          <span className="text-[10px] text-text-muted">{new Date(c.createdAt).toLocaleDateString('vi-VN')}</span>
                         </div>
-                        <p className="text-xs text-white/70 leading-relaxed">{c.content}</p>
+                        <p className="text-xs text-text-secondary leading-relaxed">{c.content}</p>
                       </div>
                     </div>
                   ))
@@ -584,13 +584,13 @@ const ComponentDetail = () => {
 
           {/* Quick tips panel */}
           <div className="flex flex-col gap-6">
-            <div className="bg-gradient-to-br from-indigo-950/20 to-purple-950/20 border border-white/[0.06] rounded-3xl p-6 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-indigo-500/5 to-purple-500/5 border border-border-primary rounded-3xl p-6 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
-              <h3 className="font-bold text-lg mb-3 text-indigo-300">💡 Hướng dẫn tích hợp</h3>
-              <ul className="text-xs text-white/60 space-y-3 leading-relaxed">
-                <li>• Nhấn nút <strong className="text-white/80">Copy Code</strong> để sao chép mã nguồn HTML, CSS tương ứng vào clipboard.</li>
-                <li>• Bạn cần chèn mã CSS vào file css dự án của mình hoặc đặt trong thẻ <code className="bg-white/5 px-1 py-0.5 rounded text-indigo-300 font-mono">&lt;style&gt;</code>.</li>
-                <li>• Nếu component có chứa Javascript (tab Javascript), hãy copy đoạn mã Javascript đó đặt trước thẻ đóng <code className="bg-white/5 px-1 py-0.5 rounded text-indigo-300 font-mono">&lt;/body&gt;</code>.</li>
+              <h3 className="font-bold text-lg mb-3 text-indigo-500 dark:text-indigo-300">💡 Hướng dẫn tích hợp</h3>
+              <ul className="text-xs text-text-secondary space-y-3 leading-relaxed">
+                <li>• Nhấn nút <strong className="text-text-primary">Copy Code</strong> để sao chép mã nguồn HTML, CSS tương ứng vào clipboard.</li>
+                <li>• Bạn cần chèn mã CSS vào file css dự án của mình hoặc đặt trong thẻ <code className="bg-black/5 dark:bg-white/5 px-1 py-0.5 rounded text-indigo-500 dark:text-indigo-300 font-mono">&lt;style&gt;</code>.</li>
+                <li>• Nếu component có chứa Javascript (tab Javascript), hãy copy đoạn mã Javascript đó đặt trước thẻ đóng <code className="bg-black/5 dark:bg-white/5 px-1 py-0.5 rounded text-indigo-500 dark:text-indigo-300 font-mono">&lt;/body&gt;</code>.</li>
                 <li>• Toàn bộ component đều là CSS thuần và HTML tĩnh, dễ dàng chỉnh sửa hoặc chuyển đổi sang React JSX / Tailwind CSS.</li>
               </ul>
             </div>
@@ -605,13 +605,13 @@ const ComponentDetail = () => {
             transition={{ delay: 0.2 }}
             className="mt-12"
           >
-            <div className="flex items-center justify-between mb-8 border-b border-white/[0.06] pb-4">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+            <div className="flex items-center justify-between mb-8 border-b border-border-primary pb-4">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-text-primary to-text-secondary bg-clip-text text-transparent">
                 Các Component Cùng Danh Mục
               </h2>
               <Link
                 to={`/components?category=${component.category}`}
-                className="text-indigo-400 hover:text-indigo-300 font-semibold text-sm flex items-center gap-1.5 transition-colors"
+                className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 font-semibold text-sm flex items-center gap-1.5 transition-colors"
               >
                 Xem tất cả <ArrowLeft className="w-4 h-4 rotate-180" />
               </Link>
@@ -624,11 +624,11 @@ const ComponentDetail = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white/[0.02] border border-white/[0.05] rounded-2xl overflow-hidden hover:border-white/[0.1] hover:shadow-xl transition-all duration-300 flex flex-col"
+                  className="bg-secondary border border-border-primary rounded-2xl overflow-hidden hover:border-indigo-500/20 hover:shadow-xl transition-all duration-300 flex flex-col"
                 >
                   <Link
                     to={`/components/${related.id}`}
-                    className="block relative aspect-video bg-[#0d0d1e] overflow-hidden"
+                    className="block relative aspect-video bg-tertiary overflow-hidden"
                   >
                     {related.htmlCode && related.cssCode ? (
                       <ComponentPreview
@@ -641,18 +641,18 @@ const ComponentDetail = () => {
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <Code2 className="w-12 h-12 text-white/20" />
+                        <Code2 className="w-12 h-12 text-text-primary/20" />
                       </div>
                     )}
                   </Link>
                   <div className="p-4 flex flex-col flex-1">
                     <Link to={`/components/${related.id}`}>
-                      <h4 className="font-bold text-sm text-white hover:text-indigo-400 transition-colors line-clamp-1 mb-1">
+                      <h4 className="font-bold text-sm text-text-primary hover:text-indigo-500 transition-colors line-clamp-1 mb-1">
                         {related.name}
                       </h4>
                     </Link>
-                    <p className="text-[11px] text-white/50 line-clamp-2 mb-3 flex-1">{related.description}</p>
-                    <div className="flex items-center gap-3 text-[10px] text-white/40 pt-2.5 border-t border-white/[0.05]">
+                    <p className="text-[11px] text-text-secondary line-clamp-2 mb-3 flex-1">{related.description}</p>
+                    <div className="flex items-center gap-3 text-[10px] text-text-muted pt-2.5 border-t border-border-primary">
                       <div className="flex items-center gap-1">
                         <Eye className="w-3.5 h-3.5" />
                         <span>{related.views}</span>
@@ -680,14 +680,14 @@ const ComponentDetail = () => {
             className="fixed inset-0 z-50 bg-[#090912] flex flex-col"
           >
             {/* Header controls */}
-            <div className="bg-[#0b0b1a] px-6 py-4 flex items-center justify-between border-b border-white/[0.08]">
+            <div className="bg-secondary px-6 py-4 flex items-center justify-between border-b border-border-primary">
               <div>
-                <h3 className="font-bold text-white text-base md:text-lg">{component.name}</h3>
-                <p className="text-white/40 text-xs italic">Xem thử nghiệm chế độ toàn màn hình</p>
+                <h3 className="font-bold text-text-primary text-base md:text-lg">{component.name}</h3>
+                <p className="text-text-muted text-xs italic">Xem thử nghiệm chế độ toàn màn hình</p>
               </div>
               <button
                 onClick={() => setIsFullscreenPreview(false)}
-                className="p-2 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] rounded-xl text-white/80 hover:text-white transition-all"
+                className="p-2 bg-tertiary hover:bg-secondary border border-border-primary rounded-xl text-text-secondary hover:text-text-primary transition-all"
                 title="Đóng chế độ phóng to"
               >
                 <X className="w-6 h-6" />

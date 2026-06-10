@@ -41,7 +41,7 @@ export const Testimonials = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="relative min-h-screen w-full overflow-hidden bg-[#050510] py-24 border-t border-white/5">
+    <section ref={ref} className="relative min-h-screen w-full overflow-hidden bg-primary py-24 border-t border-border-primary transition-colors duration-500">
       {/* Background Dot pattern */}
       <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none"></div>
 
@@ -53,13 +53,13 @@ export const Testimonials = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <span className="text-xs md:text-sm font-semibold text-indigo-400 tracking-widest uppercase mb-3 block">
+          <span className="text-xs md:text-sm font-semibold text-indigo-500 dark:text-indigo-400 tracking-widest uppercase mb-3 block">
             Ý kiến cộng đồng
           </span>
-          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent leading-tight">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary via-text-secondary to-indigo-500 dark:to-indigo-400 bg-clip-text text-transparent leading-tight">
             Được Tin Dùng Bởi Lập Trình Viên
           </h2>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
             Các chuyên gia frontend và thiết kế nói gì về ZenithUI.
           </p>
         </motion.div>
@@ -74,10 +74,10 @@ export const Testimonials = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="stat-card"
             >
-              <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
+              <div className="text-3xl md:text-4xl font-extrabold text-text-primary mb-2 bg-gradient-to-r from-indigo-500 to-pink-500 dark:from-indigo-400 dark:to-pink-400 bg-clip-text text-transparent">
                 {stat.value}
               </div>
-              <div className="text-xs md:text-sm text-slate-400 font-medium tracking-wide">
+              <div className="text-xs md:text-sm text-text-muted font-medium tracking-wide">
                 {stat.label}
               </div>
             </motion.div>
@@ -93,7 +93,7 @@ export const Testimonials = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
             >
-              <div className="bento-card h-full p-8 flex flex-col justify-between hover:border-indigo-500/20 transition-all duration-400 relative overflow-hidden bg-white/[0.01]">
+              <div className="bento-card h-full p-8 flex flex-col justify-between hover:border-indigo-500/30 transition-all duration-400 relative overflow-hidden bg-secondary">
                 <div>
                   <Quote className="w-10 h-10 text-indigo-500/20 mb-6" />
                   
@@ -104,19 +104,19 @@ export const Testimonials = () => {
                     ))}
                   </div>
 
-                  <p className="text-slate-300 mb-8 text-base leading-relaxed italic">
+                  <p className="text-text-secondary mb-8 text-base leading-relaxed italic">
                     "{testimonial.content}"
                   </p>
                 </div>
 
-                <div className="flex items-center gap-4 border-t border-white/5 pt-6 mt-auto">
+                <div className="flex items-center gap-4 border-t border-border-primary pt-6 mt-auto">
                   {/* Avatar Circle */}
                   <div className={`w-12 h-12 rounded-full ${testimonial.avatarColor} flex items-center justify-center font-bold text-white text-base shadow-lg`}>
                     {testimonial.initial}
                   </div>
                   <div>
-                    <p className="font-bold text-white text-sm">{testimonial.name}</p>
-                    <p className="text-slate-500 text-xs mt-0.5">{testimonial.role}</p>
+                    <p className="font-bold text-text-primary text-sm">{testimonial.name}</p>
+                    <p className="text-text-muted text-xs mt-0.5">{testimonial.role}</p>
                   </div>
                 </div>
               </div>
@@ -127,4 +127,3 @@ export const Testimonials = () => {
     </section>
   )
 }
-

@@ -12,9 +12,9 @@ import Toast from '../Toast'
 export const Hero = () => {
   const [showToast, setShowToast] = useState(false)
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-[#070714]">
+    <section className="relative h-screen w-full overflow-hidden bg-primary transition-colors duration-500">
       {/* 3D Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 opacity-80 dark:opacity-100">
         <Canvas
           gl={{ 
             antialias: true, 
@@ -37,7 +37,7 @@ export const Hero = () => {
       </div>
 
       {/* Subtle Mesh Background Overlay */}
-      <div className="absolute inset-0 bg-radial-mesh opacity-30 pointer-events-none z-1"></div>
+      <div className="absolute inset-0 bg-radial-mesh opacity-20 dark:opacity-30 pointer-events-none z-1"></div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 max-w-7xl mx-auto w-full pt-16 md:pt-0">
@@ -47,13 +47,13 @@ export const Hero = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-tertiary border border-border-primary backdrop-blur-md mb-6"
           >
             <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
             </span>
-            <span className="text-xs md:text-sm font-semibold text-white/90 tracking-wide">
+            <span className="text-xs md:text-sm font-semibold text-text-primary tracking-wide">
               ✨ New Version v2.5: 45+ Beautiful Components
             </span>
           </motion.div>
@@ -68,12 +68,12 @@ export const Hero = () => {
               letterSpacing: '-2px',
             }}
           >
-            <span className="bg-gradient-to-r from-indigo-200 via-purple-300 to-pink-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-900 via-purple-800 to-pink-800 dark:from-indigo-200 dark:via-purple-300 dark:to-pink-200 bg-clip-text text-transparent">
               Elevate Your
             </span>
             <br />
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.35)] font-extrabold">
-              UIUX Experience
+            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.15)] dark:drop-shadow-[0_0_30px_rgba(168,85,247,0.35)] font-extrabold">
+              ZenithUI Experience
             </span>
           </motion.h1>
           
@@ -82,7 +82,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed"
           >
             Thư viện component mẫu chất lượng cao, thiết kế hiện đại, tương tác 3D mượt mà và hoàn toàn miễn phí.
           </motion.p>
@@ -99,7 +99,7 @@ export const Hero = () => {
             </Link>
             <Button 
               variant="secondary"
-              className="px-8 py-4 text-base font-medium bg-white/5 border-white/10 hover:bg-white/10 backdrop-blur-sm"
+              className="px-8 py-4 text-base font-medium bg-tertiary border-border-primary hover:bg-secondary text-text-primary backdrop-blur-sm"
               onClick={() => setShowToast(true)}
             >
               Xem Demo
@@ -111,19 +111,19 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="grid grid-cols-3 gap-4 md:gap-8 max-w-xl mx-auto border-t border-white/10 pt-8"
+            className="grid grid-cols-3 gap-4 md:gap-8 max-w-xl mx-auto border-t border-border-primary pt-8"
           >
             <div>
-              <div className="text-2xl md:text-3xl font-extrabold text-white">45+</div>
-              <div className="text-xs md:text-sm text-slate-400 uppercase tracking-wider font-semibold mt-1">Components</div>
+              <div className="text-2xl md:text-3xl font-extrabold text-text-primary">45+</div>
+              <div className="text-xs md:text-sm text-text-muted uppercase tracking-wider font-semibold mt-1">Components</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-extrabold text-white">100%</div>
-              <div className="text-xs md:text-sm text-slate-400 uppercase tracking-wider font-semibold mt-1">Free</div>
+              <div className="text-2xl md:text-3xl font-extrabold text-text-primary">100%</div>
+              <div className="text-xs md:text-sm text-text-muted uppercase tracking-wider font-semibold mt-1">Free</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-extrabold text-white">Modern</div>
-              <div className="text-xs md:text-sm text-slate-400 uppercase tracking-wider font-semibold mt-1">Designs</div>
+              <div className="text-2xl md:text-3xl font-extrabold text-text-primary">Modern</div>
+              <div className="text-xs md:text-sm text-text-muted uppercase tracking-wider font-semibold mt-1">Designs</div>
             </div>
           </motion.div>
         </div>
@@ -135,12 +135,12 @@ export const Hero = () => {
               initial={{ opacity: 0, x: -50, y: 30 }}
               animate={{ opacity: 0.8, x: 0, y: 0 }}
               transition={{ delay: 0.7, duration: 1 }}
-              className="absolute left-8 bottom-4 w-52 p-4 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex items-center gap-3"
+              className="absolute left-8 bottom-4 w-52 p-4 rounded-xl bg-tertiary border border-border-primary backdrop-blur-md flex items-center gap-3"
             >
-              <div className="p-2 rounded-lg bg-indigo-500/20 text-indigo-400">🔘</div>
+              <div className="p-2 rounded-lg bg-indigo-500/20 text-indigo-500 dark:text-indigo-400">🔘</div>
               <div>
-                <div className="text-xs font-bold text-white">3D Push Button</div>
-                <div className="text-[10px] text-slate-400">Click interactions ready</div>
+                <div className="text-xs font-bold text-text-primary">3D Push Button</div>
+                <div className="text-[10px] text-text-muted">Click interactions ready</div>
               </div>
             </motion.div>
             
@@ -148,12 +148,12 @@ export const Hero = () => {
               initial={{ opacity: 0, x: 50, y: 30 }}
               animate={{ opacity: 0.8, x: 0, y: 0 }}
               transition={{ delay: 0.8, duration: 1 }}
-              className="absolute right-8 bottom-12 w-56 p-4 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex items-center gap-3"
+              className="absolute right-8 bottom-12 w-56 p-4 rounded-xl bg-tertiary border border-border-primary backdrop-blur-md flex items-center gap-3"
             >
-              <div className="p-2 rounded-lg bg-pink-500/20 text-pink-400">🃏</div>
+              <div className="p-2 rounded-lg bg-pink-500/20 text-pink-500 dark:text-pink-400">🃏</div>
               <div>
-                <div className="text-xs font-bold text-white">Glassmorphism Card</div>
-                <div className="text-[10px] text-slate-400">Smooth hover transitions</div>
+                <div className="text-xs font-bold text-text-primary">Glassmorphism Card</div>
+                <div className="text-[10px] text-text-muted">Smooth hover transitions</div>
               </div>
             </motion.div>
           </div>
@@ -170,12 +170,12 @@ export const Hero = () => {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-5 h-9 border-2 border-white/30 rounded-full flex justify-center"
+          className="w-5 h-9 border-2 border-text-primary/30 rounded-full flex justify-center"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-2.5 bg-white/50 rounded-full mt-1.5"
+            className="w-1 h-2.5 bg-text-primary/50 rounded-full mt-1.5"
           />
         </motion.div>
       </motion.div>
@@ -190,4 +190,3 @@ export const Hero = () => {
     </section>
   )
 }
-

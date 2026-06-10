@@ -8,7 +8,7 @@ export const CTA = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="relative min-h-[80vh] w-full overflow-hidden bg-[#050510] py-24 flex items-center justify-center border-t border-white/5">
+    <section ref={ref} className="relative min-h-[80vh] w-full overflow-hidden bg-primary py-24 flex items-center justify-center border-t border-border-primary transition-colors duration-500">
       {/* CSS Mesh background pattern */}
       <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none"></div>
       
@@ -25,7 +25,7 @@ export const CTA = () => {
           className="gradient-border-animated max-w-3xl mx-auto rounded-[32px]"
         >
           {/* Inner Card Content */}
-          <div className="bg-[#0b0b1a]/90 backdrop-blur-2xl px-8 py-16 md:p-20 text-center rounded-[32px] border border-white/5 relative overflow-hidden">
+          <div className="bg-secondary/90 backdrop-blur-2xl px-8 py-16 md:p-20 text-center rounded-[32px] border border-border-primary relative overflow-hidden transition-colors duration-500">
             {/* Mesh glow inside card */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-3xl pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-500/10 blur-3xl pointer-events-none"></div>
@@ -34,7 +34,7 @@ export const CTA = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-indigo-200 via-purple-300 to-pink-200 bg-clip-text text-transparent leading-tight"
+              className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary via-text-secondary to-indigo-500 dark:from-indigo-200 dark:via-purple-300 dark:to-pink-200 bg-clip-text text-transparent leading-tight"
             >
               Sẵn Sàng Nâng Tầm Giao Diện?
             </motion.h2>
@@ -43,7 +43,7 @@ export const CTA = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-base md:text-xl text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed"
+              className="text-base md:text-xl text-text-secondary mb-10 max-w-xl mx-auto leading-relaxed"
             >
               Bắt đầu tạo ra những trang web tuyệt vời và thu hút người dùng của bạn ngay hôm nay với thư viện UI hoàn toàn miễn phí.
             </motion.p>
@@ -59,7 +59,7 @@ export const CTA = () => {
               </Link>
               <Button 
                 variant="secondary"
-                className="px-8 py-4 font-medium text-base bg-white/5 border-white/10 hover:bg-white/10 backdrop-blur-sm"
+                className="px-8 py-4 font-medium text-base bg-tertiary border-border-primary hover:bg-secondary text-text-primary backdrop-blur-sm"
                 onClick={() => {
                   window.location.href = 'mailto:support@zenithui.com?subject=Liên%20hệ%20từ%20ZenithUI'
                 }}
@@ -73,4 +73,3 @@ export const CTA = () => {
     </section>
   )
 }
-

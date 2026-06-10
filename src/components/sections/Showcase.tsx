@@ -53,10 +53,10 @@ export const Showcase = () => {
       key={`${component.id}-${Math.random()}`}
       className="block w-[280px] md:w-[320px] flex-shrink-0 group"
     >
-      <div className="component-card h-full p-6 flex flex-col justify-between border-white/5 hover:border-indigo-500/30 transition-all duration-400 select-none">
+      <div className="component-card h-full p-6 flex flex-col justify-between border-border-primary hover:border-indigo-500/30 transition-all duration-400 select-none">
         <div>
           {/* Card Visual Header (CSS gradient preview) */}
-          <div className={`relative h-36 mb-5 rounded-xl overflow-hidden bg-gradient-to-br ${getGradientClass(component.category)} flex items-center justify-center border border-white/5`}>
+          <div className={`relative h-36 mb-5 rounded-xl overflow-hidden bg-gradient-to-br ${getGradientClass(component.category)} flex items-center justify-center border border-border-primary`}>
             {/* Mesh effect */}
             <div className="absolute inset-0 bg-radial-mesh opacity-30"></div>
             
@@ -73,20 +73,20 @@ export const Showcase = () => {
           </div>
 
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[10px] uppercase tracking-widest font-extrabold text-indigo-400 px-2.5 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/10">
+            <span className="text-[10px] uppercase tracking-widest font-extrabold text-indigo-500 dark:text-indigo-400 px-2.5 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/10">
               {component.category}
             </span>
           </div>
 
-          <h3 className="text-lg font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors duration-300">
+          <h3 className="text-lg font-bold text-text-primary mb-2 group-hover:text-indigo-500 dark:group-hover:text-indigo-300 transition-colors duration-300">
             {component.name}
           </h3>
-          <p className="text-xs md:text-sm text-slate-400 line-clamp-2 leading-relaxed">
+          <p className="text-xs md:text-sm text-text-secondary line-clamp-2 leading-relaxed">
             {component.description}
           </p>
         </div>
 
-        <div className="flex items-center justify-between text-xs text-slate-500 mt-6 pt-4 border-t border-white/5">
+        <div className="flex items-center justify-between text-xs text-text-muted mt-6 pt-4 border-t border-border-primary">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
               <Eye className="w-3.5 h-3.5" />
@@ -97,14 +97,14 @@ export const Showcase = () => {
               {component.likes}
             </span>
           </div>
-          <span className="font-mono text-[10px] text-slate-600">{component.framework}</span>
+          <span className="font-mono text-[10px] text-text-muted">{component.framework}</span>
         </div>
       </div>
     </Link>
   )
 
   return (
-    <section ref={ref} className="relative min-h-screen w-full overflow-hidden bg-[#07070f] py-24 border-t border-white/5 flex flex-col justify-center">
+    <section ref={ref} className="relative min-h-screen w-full overflow-hidden bg-secondary py-24 border-t border-border-primary transition-colors duration-500 flex flex-col justify-center">
       {/* Background blobs */}
       <div className="absolute left-1/4 top-1/4 w-96 h-96 rounded-full bg-purple-500/5 blur-3xl pointer-events-none"></div>
       <div className="absolute right-1/4 bottom-1/4 w-96 h-96 rounded-full bg-indigo-500/5 blur-3xl pointer-events-none"></div>
@@ -116,13 +116,13 @@ export const Showcase = () => {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <span className="text-xs md:text-sm font-semibold text-pink-400 tracking-widest uppercase mb-3 block">
+          <span className="text-xs md:text-sm font-semibold text-pink-500 dark:text-pink-400 tracking-widest uppercase mb-3 block">
             Thư viện thiết kế
           </span>
-          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-white via-slate-200 to-pink-400 bg-clip-text text-transparent leading-tight">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary via-text-secondary to-pink-500 dark:to-pink-400 bg-clip-text text-transparent leading-tight">
             Thư Viện Component Mẫu
           </h2>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
             Xem trước một số thiết kế nổi bật. Hover chuột vào thẻ để tạm dừng hoặc click để lấy toàn bộ code.
           </p>
         </motion.div>
@@ -131,8 +131,8 @@ export const Showcase = () => {
       {/* Marquee Rows Container */}
       <div className="flex flex-col gap-6 w-full overflow-hidden relative z-10">
         {/* Shadow Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#07070f] to-transparent z-20 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-[#07070f] to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-secondary to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-secondary to-transparent z-20 pointer-events-none"></div>
 
         {/* Row 1: Scrolls Left */}
         <div className="flex w-full overflow-hidden">
@@ -153,4 +153,3 @@ export const Showcase = () => {
     </section>
   )
 }
-
